@@ -18,7 +18,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .models import NewUser
+
+from .forms import UserForm
 
 
 def home(request):
@@ -39,12 +40,16 @@ def register1(request):
         if password == confpassword:
             password = make_password(password)
 
-        a = NewUser(name=name, username=username,
-                    email=email, password=password)
-        a.is_member = True
+        a = User(first_name=name, username=username,
+                email=email, password=password)
+
         a.save()
         messages.success(request, 'Account was created successfully')
-        return redirect('home')
+        return redirect('login1')
 
-    return render(request, 'register1.html')
+    forms = UserForm()
+    context = {
+        'forms': forms
+    }
+    return render(request, 'register1.html', context)
     # return render(request, 'register1.html')

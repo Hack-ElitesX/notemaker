@@ -12,11 +12,16 @@ from fpdf import FPDF
 
 
 def home(request):
-    return render(request, 'home.html')
+    param = {'Name': "TestNotes"}
+    return render(request, 'home.html', param)
 
 
 def login1(request):
     return render(request, 'login1.html')
+
+
+def conversion(request):
+    return render(request, 'conversion.html')
 
 
 def register1(request):
@@ -25,12 +30,12 @@ def register1(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        confpassword = request.POST['confPassword']
-        if password == confpassword:
-            password = make_password(password)
+        # confpassword = request.POST['confPassword']
+        # if password == confpassword:
+        password = make_password(password)
 
         a = User(first_name=name, username=username,
-                email=email, password=password)
+                 email=email, password=password)
 
         a.save()
         messages.success(request, 'Account was created successfully')

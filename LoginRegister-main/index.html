@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login and Register Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button class="toggle-btn" type="button" onclick="login()">
+            Log In
+          </button>
+          <button class="toggle-btn" type="button" onclick="register()">
+            Register
+          </button>
+        </div>
+        <div class="social-icons">
+          <img src="images/fb2.png" alt="fb" />
+          <img src="images/tw3.png" alt="tw" />
+          <img src="images/gp2.png" alt="gp" />
+        </div>
+        <!-- Login form -->
+        <form action="/" class="input-group" method="POST" id="login">
+          <input
+            type="text"
+            name="username"
+            class="input-field"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            class="input-field"
+            placeholder="Password"
+            required
+          />
+          <input type="checkbox" name="check-box" class="check-box" /><span
+            >Remember Password</span
+          >
+          <button class="submit-btn" type="submit">Log in</button>
+        </form>
+        <!-- Register form -->
+        <form action="/" class="input-group" method="POST" id="register">
+          <input
+            type="text"
+            name="name"
+            class="input-field"
+            placeholder="Name"
+            required
+          />
+          <input
+            type="text"
+            name="username"
+            class="input-field"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            class="input-field"
+            placeholder="Email"
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            class="input-field"
+            placeholder="Password"
+            required
+          />
+          <input type="checkbox" name="check-box" class="check-box" /><span
+            >I agree to the terms &amp; conditions</span
+          >
+          <button class="submit-btn" type="submit">Log in</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- script for changing login  to register -->
+    <script>
+      var x = document.getElementById('login');
+      var y = document.getElementById('register');
+      var z = document.getElementById('btn');
+
+      function register() {
+        x.style.left = '-400px';
+        y.style.left = '50px';
+        z.style.left = '110px';
+      }
+      function login() {
+        x.style.left = '50px';
+        y.style.left = '450px';
+        z.style.left = '0px';
+      }
+    </script>
+  </body>
+</html>

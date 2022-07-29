@@ -1,7 +1,5 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class="container mt-5">
+{% extends 'base.html' %} {% block content %}
+<!-- <div class="container mt-5">
     
     <div class="row">
 
@@ -39,79 +37,32 @@
 
 </div>
 </div>
-<div class="container mt-5">
-    
-    <div class="row">
 
-        <div class="card" style="width: 18rem ; background-color:mediumpurple;">
-            <div class="card-body">
-            <h5 class="card-title">Java Notes</h5>
-            <p class="card-text">NumPy is a Python library used for working with arrays.
-                It also has functions for working in domain of linear algebra, fourier transform, and matrices
-                NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-                NumPy stands for Numerical Python</p>
-            <a href="#" class="btn btn-dark">read me</a>
-            
-        </div>
-        
-    </div>
-    <div class="card ms-5" style="width: 18rem; background-color:aqua;">
-        <div class="card-body">
-        <h5 class="card-title">Data Management Notes</h5>
-        <p class="card-text">NumPy is a Python library used for working with arrays.
-            It also has functions for working in domain of linear algebra, fourier transform, and matrices
-            NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-            NumPy stands for Numerical Python</p>
-        <a href="#" class="btn btn-dark">read me</a>
+</div> -->
+{% load static %}
 
+<div>
+  <img
+    src="{% static 'images/note.svg' %}"
+    alt="note"
+    style="height: 50vh; margin-top: 50px"
+    class="card-title"
+  />
+  <div>
+    <h3 class="card-text">Automated Note Maker</h3>
+    <p class="card-text">
+      Welcome to {{Name}}, a tool for online lectures that enables students to
+      take effective notes. {{Name}} respects initiative, zeal, and action. Our
+      goal is to become the top worldwide platform for digital learning content
+      through the integration of cutting-edge technology and best practises in
+      order to democratise education and enable both teachers and students to
+      realise their full potential. There is a need for the creation of software
+      that will help you take notes while an online lecture is currently being
+      delivered. This serious issue has been resolved by {{Name}}. Your online
+      lectures can be easily converted into readable pdf, word, or text files
+      with the help of {{Name}}.
+    </p>
+  </div>
 </div>
-</div>
-<div class="card ms-5" style="width: 18rem; background-color:cornflowerblue;">
-    <div class="card-body">
-    <h5 class="card-title">Data Management Notes</h5>
-    <p class="card-text">NumPy is a Python library used for working with arrays.
-        It also has functions for working in domain of linear algebra, fourier transform, and matrices
-        NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-        NumPy stands for Numerical Python</p>
-    <a href="#" class="btn btn-dark">read me</a>
 
-</div>
-</div>
-    <div class="container mt-5">
-    
-        <div class="row">
-    
-            <div class="card" style="width: 18rem ; background-color:darkseagreen;">
-                <div class="card-body">
-                <h5 class="card-title">Operating System Notes</h5>
-                <p class="card-text">NumPy is a Python library used for working with arrays.
-                    It also has functions for working in domain of linear algebra, fourier transform, and matrices
-                    NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-                    NumPy stands for Numerical Python</p>
-                <a href="#" class="btn btn-dark">read me</a>
-                
-            </div>
-        </div>
-        <div class="card ms-5" style="width: 18rem; background-color:crimson;">
-            <div class="card-body">
-            <h5 class="card-title">Data Management Notes</h5>
-            <p class="card-text">NumPy is a Python library used for working with arrays.
-                It also has functions for working in domain of linear algebra, fourier transform, and matrices
-                NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-                NumPy stands for Numerical Python</p>
-            <a href="#" class="btn btn-dark">read me</a>
-
-    </div>
-</div>
-<div class="card ms-5" style="width: 18rem; background-color:goldenrod;">
-    <div class="card-body">
-    <h5 class="card-title">Data Management Notes</h5>
-    <p class="card-text">NumPy is a Python library used for working with arrays.
-        It also has functions for working in domain of linear algebra, fourier transform, and matrices
-        NumPy was created in 2005 by Travis Oliphant. It is an open source project and you can use it freely.
-        NumPy stands for Numerical Python</p>
-    <a href="#" class="btn btn-dark">read me</a>
-
-</div>
-</div>
-{% endblock  %}
+{% endblock %}

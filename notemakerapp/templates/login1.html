@@ -1,56 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<body>
-    <div class='row'>
-        <div class='col-lg-6 offset-lg-3'>
-            <div class='card bg-secondary mb-3'>
-                <div class='card-body'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login and Register Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
 
-                    <div class='form-group'>
+      .container {
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.4)
+          ),
+          url("images/banner2.jpg");
+        background-position: center;
+        background-size: cover;
+        position: absolute;
+      }
 
-                        <form action="{% url 'home' %}" method='post'>
-                            {% csrf_token %}
-                            <div class='form-group'>
-                                <label for='inputUsername' class='form-label mt-4'>
-                                    Username
-                                </label>
-                                <input type='text' name='username' class='form-control' id='inputUsername' placeholder='Enter username' autofocus>
-                            </div>
+      .form-box {
+        width: 380px;
+        height: 480px;
+        position: relative;
+        margin: 6% auto;
+        background: #fff;
+        padding: 5px;
+        overflow: hidden;
+        border-radius: 15px;
+      }
 
-                            <div class='form-group'>
-                                <label for='inputPassword1' class='form-label mt-4'>
-                                    Password
-                                </label>
-                                <input type='password' name='password' class='form-control' id='inputPassword1' placeholder='Enter password'>
-                            </div>
+      .button-box {
+        width: 220px;
+        display: flex;
+        justify-content: center;
+        margin: 35px auto;
+        position: relative;
+        /* box-shadow: 0 0 20px 9px #4001741f; */
+        border-radius: 30px;
+        /* color: black; */
+      }
 
-                            <div class='form-group mt-4'>
-                                <button type='submit' class='btn btn-primary'>
-                                    Login
-                                </button>
-                            </div>
-                        </form>
+      .toggle-btn {
+        padding: 10px 30px;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        outline: none;
+        position: relative;
+        /* color: white; */
+      }
 
-                        <div class='mt-2'>
-                            Don't have an account? <a href="{% url 'register1' %}" type='button' class='btn btn-link'>
-                                Register here
-                            </a>
-                        </div>
+      #btn {
+        top: 0;
+        left: auto;
+        position: absolute;
+        width: 110px;
+        height: 100%;
+        background: linear-gradient(to right, #3eb6de, #a958db);
+        border-radius: 30px;
+        transition: 0.5s;
+        text-align: center;
+        /* color: white; */
+      }
 
-                    </div>
-                </div>
-            </div>
+      .social-icons {
+        margin: 30px auto;
+        text-align: center;
+      }
+      .social-icons img {
+        width: 30px;
+        margin: 0 12px;
+        box-shadow: 0 0 20px 0 #7f7f7f3d;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+
+      .input-group {
+        top: 130px;
+        position: absolute;
+        width: 280px;
+        transition: 0.5s;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 0;
+        margin: 5px 0;
+        border-left: 0;
+        border-top: 0;
+        border-right: 0;
+        border-bottom: 1px solid #999;
+        outline: none;
+        background: transparent;
+      }
+
+      #remember {
+        position: absolute;
+        top: 125px;
+      }
+
+      .submit-btn {
+        width: 85%;
+        padding: 10px 30px;
+        cursor: pointer;
+        display: block;
+        margin: auto;
+        background: linear-gradient(to right, #3eb6de, #a958db);
+        border: 0;
+        outline: none;
+        border-radius: 30px;
+      }
+
+      .check-box {
+        margin: 30px 10px 30px 0;
+      }
+      span {
+        color: #777;
+        font-size: 12px;
+        bottom: 64px;
+        position: absolute;
+      }
+
+      #login {
+        left: 50px;
+      }
+
+      #register {
+        left: 50px;
+      }
+
+      #create-acc {
+        font-size: 12px;
+        text-decoration: none;
+        margin-top: 20px;
+      }
+
+      form > input {
+        margin-top: 100px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    {% load static %}
+    <div class="container">
+      <div class="form-box">
+        <div class="button-box">
+          <div id="btn"></div>
+          <!-- Do not touch -->
+          <button
+            class="toggle-btn"
+            type="button"
+            style="height: 30px; background-color: white; color: white"
+          >
+            <img
+              src="{% static 'images/profile.svg' %}"
+              alt="Profile Pic"
+              style="
+                height: 70px;
+                margin: 0;
+                padding: 0;
+                box-shadow: 5px 5px 10px rgba(135, 206, 235, 0.5);
+                border-radius: 50%;
+              "
+            />
+          </button>
+          <!-- <button class="toggle-btn" type="button" onclick="register()">
+            Register
+          </button> -->
         </div>
+        <!-- <div class="social-icons">
+          <img src="{% static 'images/fb2.png' %}" alt="fb" />
+          <img src="{% static 'images/tw3.png' %}" alt="tw" />
+          <img src="{% static 'images/gp2.png' %}" alt="gp" />
+        </div> -->
+        <!-- Login form -->
+        <form
+          action="{% url 'home' %}"
+          class="input-group"
+          method="POST"
+          id="login"
+        >
+          {% csrf_token %}
+          <input
+            type="text"
+            name="username"
+            class="input-field"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            class="input-field"
+            placeholder="Password"
+            required
+          />
+          <input type="checkbox" name="check-box" class="check-box" /><span
+            id="remember"
+            >Remember Password</span
+          >
+          <button class="submit-btn" type="submit">Log in</button>
+          <p style="text-align: center">
+            <a href="{%url 'register1'%}" id="create-acc">Create an Account!</a>
+          </p>
+        </form>
+      </div>
     </div>
 
-</div>
-</div>
-</body>
+    <!-- script for changing login  to register -->
+  </body>
 </html>

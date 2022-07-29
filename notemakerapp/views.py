@@ -29,6 +29,9 @@ def home(request):
 def login1(request):
     return render(request, 'login1.html')
 
+def conversion(request):
+    return render(request, 'conversion.html')
+
 
 def register1(request):
     if request.method == 'POST':

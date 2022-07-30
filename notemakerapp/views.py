@@ -105,3 +105,9 @@ text_to_pdf arguments:
             pdf.cell(0, fontsize_mm, wrap, ln=1)
 
     pdf.output(filename, 'F')
+
+def edit(request):
+    param = {
+    "text" : ""
+    }
+    return render(request, 'edit.html', param)

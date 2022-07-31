@@ -1,0 +1,5 @@
+django==4.0.6
+django_crispy_forms==1.14.0
+moviepy==1.0.3
+fpdf==1.7.2
+django_bootstrap_modal_forms==2.2.0

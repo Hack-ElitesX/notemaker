@@ -1,79 +1,399 @@
 <!DOCTYPE html>
-{% load static %}
-
 <html lang="en">
-
-<head>
-    <style>
-    
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Charis+SIL&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
+  <head>
+    {% block head %}
+    {% endblock head %}
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+
     <title>Automated Note Maker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css">
-    <link rel="stylesheet" type="text/css" href='{% static '/css/style.css' %}?{% now "U" %}'>
-</head>
+  </head>
 
-<body>
-    <!--navbar start-->
-    <nav class="navbar navbar-expand-lg " style="background-image: linear-gradient(to left top, #ff9ff8, #ff9bd9, #ff9cbd, #ffa1a7, #ffa897, #ffac99, #ffb19b, #ffb59e, #ffb7ad, #ffbbbc, #fbbfc8, #f5c4d3);">
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg bg-dark navbar-dark"
+        style="background: linear-gradient(
+          to left top,
+          #ff9ff8,
+          #ff9bd9,
+          #ff9cbd,
+          #ffa1a7,
+          #ffa897,
+          #ffac99,
+          #ffb19b,
+          #ffb59e,
+          #ffb7ad,
+          #ffbbbc,
+          #fbbfc8,
+          #f5c4d3
+        );"
+      >
         <div class="container-fluid">
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand text-white" href="{% url 'home' %}">
+            <strong>HexNotes</strong></a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link active text-dark" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">My Collections</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Share</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Download</a>
-            </li>
-        
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white"
+                  aria-current="page"
+                  href="{% url 'home' %}"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'convert' %}">Conversion</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'editor' %}" >Editor</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#" data-bs-toggle="modal"
+                data-bs-target="#loginModal">Editor</a>
+              </li>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'collections' %}" >Collections</a>
+              </li>
+              {% endif %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle text-white"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Settings
+                </a>
+                <ul class="dropdown-menu px-2" style="width: 200px">
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="DarkMode"
+                        >Dark Mode</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="DarkMode"
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="SaveToDrive"
+                        >Save to Drive</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="SaveToDrive"
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="DefaultSettings"
+                        >Default Settings</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="DefaultSettings"
+                      />
+                    </div>
+                  </li>
+                </ul>
+              </li>
             </ul>
-            <form class="d-flex mx-auto">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success text-dark" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            
+            <form class="d-flex my-2" role="search ">
+              <input
+                class="form-control mx-2"
+                type="search "
+                placeholder="Search "
+                aria-label="Search "
+              />
+              <button class="btn btn-outline-success" type="submit ">
+                Search
+              </button>
             </form>
-            <button class="btn btn-light text-dark" type="submit">Upload to Drive</button>
 
-            <button class="btn btn-light text-dark m-lg-2" type="submit">Login</button>
-        
+            {% if user.is_authenticated %}
+            <button type="button " class="btn btn-info mx-2 my-2">
+              Hello {{request.user}} !
+            </button>
+
+            <form action="logout " method="post">
+              {% csrf_token %}
+              <button type="submit " class="btn btn-danger mx-2 my-2">
+                Logout
+              </button>
+            </form>
+            {% else %}
+            <!-- Button to trigger login modal -->
+            <button
+              type="button"
+              class="btn btn-success mx-2 my-2"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              Login
+            </button>
+            <!-- Button to trigger signup modal -->
+            <button
+              type="button"
+              class="btn btn-success mx-2 my-2"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              SignUp
+            </button>
+            {% endif %}
+          </div>
         </div>
+      </nav>
+    </header>
+
+    <div class="loginSignup">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 "
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %}
+
+      <!--  SignUp Modal -->
+      <div
+        class="modal fade"
+        id="signupModal"
+        tabindex="-1 "
+        aria-labelledby="signupModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div
+            class="modal-content"
+            style="background: linear-gradient(to left top,
+                #ff9ff8,
+                #ff9bd9,
+                #ff9cbd,
+                #ffa1a7,
+                #ffa897,
+                #ffac99,
+                #ffb19b,
+                #ffb59e,
+                #ffb7ad,
+                #ffbbbc,
+                #fbbfc8,
+                #f5c4d3
+              );
+              color: white;
+            "
+          >
+            <div class="modal-header">
+              <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Modal Body -->
+              <form
+                action="/signup"
+                method="POST"
+                id="register"
+                enctype="multipart/form-data "
+              >
+                {% csrf_token %} 
+                <div class="form-group">
+                  <label for="name" class="my-2">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="username" class="my-2">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email" class="my-2">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="example@example.com"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass1" class="my-2">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass1"
+                    name="pass1"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass2" class="my-2">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass2"
+                    name="pass2"
+                    placeholder="Confirm Password"
+                    required
+                  />
+                </div>
+
+                <div class="form-group my-2">
+                  <input
+                    type="checkbox"
+                    name="check-box"
+                    class="mx-2 my-2"
+                    required
+                  /><span>I agree to the terms &amp; conditions</span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Register</button>
+              </form>
+            </div>
+          </div>
         </div>
-    </nav>
-    <!--navbar  end-->
+      </div>
+      <!--  Login Modal -->
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1 "
+        aria-labelledby="loginModal"
+        aria-hidden="true "
+      >
+        <div class="modal-dialog">
+          <div
+            class="modal-content"
+            style="background: linear-gradient(
+                to left top,
+                #ff9ff8,
+                #ff9bd9,
+                #ff9cbd,
+                #ffa1a7,
+                #ffa897,
+                #ffac99,
+                #ffb19b,
+                #ffb59e,
+                #ffb7ad,
+                #ffbbbc,
+                #fbbfc8,
+                #f5c4d3
+              );
+              color: white;
+            "
+          >
+            <div class="modal-header">
+              <h5 class="modal-title">Login Here</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="/login" method="POST" id="login">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="uname" class="my-2">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="uname"
+                    name="uname"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
 
-    <div class="container">
-    <div class="row">
-    
+                <div class="form-group">
+                  <label for="pass" class="my-2">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass"
+                    name="pass"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
 
-        <div class="col-md-12">
-        
-
-        {% block content %}
-        {% endblock content %}
+                <button type="submit" class="btn btn-success my-2" required>
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-
+      </div>
     </div>
 
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-</body>
-
+    {% block content %} {% endblock content %}
+  </body>
 </html>

@@ -9,6 +9,10 @@ import moviepy.editor
 import textwrap
 from fpdf import FPDF
 
+from deepgram import Deepgram
+import asyncio, json
+import re
+
 # Create your views here.
 
 def home(request):
@@ -149,8 +153,24 @@ text_to_pdf arguments:
 
     pdf.output(filename, 'F')
 
+DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
+async def main(path):
+    # Initializes the Deepgram SDK
+    deepgram = Deepgram(DEEPGRAM_API_KEY)
+    # Open the audio file
+    with open(path, 'rb') as audio:
+        # ...or replace mimetype as appropriate
+        source = {'buffer': audio, 'mimetype': 'audio/wav'}
+        response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+    res = json.dumps(response["results"]["channels"][0], indent=1)
+    pattern = r"\"transcript\": \".+\""
+    return re.findall(pattern, res)
+
+def audio_to_text(path):
+    return asyncio.run(main(path))
+
 def edit(request):
     param = {
-    "text" : ""
+    "text" : audio_to_text("input.wav") # Change this
     }
     return render(request, 'edit.html', param)

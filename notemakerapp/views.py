@@ -1,20 +1,23 @@
-
+from lib2to3.pgen2 import token
+from typing import final
+from urllib import response
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login,logout
 from django.core.files.storage import FileSystemStorage
 
+from uuid import uuid4
 import moviepy.editor
 import textwrap
 from fpdf import FPDF
-
 from deepgram import Deepgram
 import asyncio, json
 import re
+from django.core.files.storage import default_storage
+import os
 
 # Create your views here.
-
 def home(request):
     param = {'Name': "TestNotes"}
     return render(request, 'home.html', param)
@@ -78,15 +81,19 @@ def handleLogout(request):
         return redirect('home')
     else:
         return HttpResponse('404 - Not Found')
-    
+
 def convert(request):
     if request.method == "POST":
         uploaded_file = request.FILES['file']
         fs = FileSystemStorage()
-        fs.save(uploaded_file.name,uploaded_file)
+        token_var = uuid4()
+        saveFileName = str(token_var) + '_' + str(uploaded_file.name)
+        fs.save(saveFileName, uploaded_file)
         
-        
-    return render(request,'conversion.html')
+        text = audio_to_text(saveFileName)
+        return edit(request, text)
+    else:
+        return render(request,'conversion.html')
 
 
 def editor(request):
@@ -157,20 +164,24 @@ DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
     # Initializes the Deepgram SDK
     deepgram = Deepgram(DEEPGRAM_API_KEY)
-    # Open the audio file
-    with open(path, 'rb') as audio:
-        # ...or replace mimetype as appropriate
-        source = {'buffer': audio, 'mimetype': 'audio/wav'}
-        response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+
+    f = default_storage.open(os.path.join('', path), 'rb')
+    data = f.read()
+    f.close()
+    source = {'buffer': data, 'mimetype': 'audio/wav'}
+    response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+
     res = json.dumps(response["results"]["channels"][0], indent=1)
     pattern = r"\"transcript\": \".+\""
-    return re.findall(pattern, res)
+    final_text = re.findall(pattern, res)
+    final_text = " ".join(final_text)
+    final_text += "<>"
+    final_text = final_text.replace("\"transcript\": \"", '').replace("\"<>", '')
+    return final_text
 
 def audio_to_text(path):
     return asyncio.run(main(path))
 
-def edit(request):
-    param = {
-    "text" : audio_to_text("input.wav") # Change this
-    }
+def edit(request, text):
+    param = { "text": text }
     return render(request, 'edit.html', param)

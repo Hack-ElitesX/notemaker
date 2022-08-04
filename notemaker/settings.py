@@ -123,8 +123,8 @@ STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = "member"
 LOGIN_URL = 'login'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'notemakerapp/media')
+MEDIA_URL = '/notemakerapp/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
@@ -134,6 +134,7 @@ MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
+<<<<<<< HEAD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = 'static/'
@@ -142,3 +143,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+=======
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+>>>>>>> d68c15990d65538a8b90463136cbcaaae4230a87

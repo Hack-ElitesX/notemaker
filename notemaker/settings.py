@@ -138,7 +138,6 @@ MEDIA_URL = '/notemakerapp/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
-<<<<<<< HEAD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = 'static/'
@@ -147,6 +146,6 @@ STATIC_URL = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-=======
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
->>>>>>> d68c15990d65538a8b90463136cbcaaae4230a87
+

@@ -23,7 +23,7 @@ function changeMode() {
         localStorage.setItem('darkMode', 1);
     }
     else {  // Light Mode
-        document.getElementsByClassName('container-fluid')[0].style.background = "linear-gradient( to left top, #ff9ff8, #ff9bd9, #ff9cbd, #ffa1a7, #ffa897, #ffac99, #ffb19b, #ffb59e, #ffb7ad, #ffbbbc, #fbbfc8, #f5c4d3 )"; 
+        document.getElementsByClassName('container-fluid')[0].style.background = "linear-gradient(to left top, #d63447, #e34c3e, #ed6334, #f47b2a, #f7931e)"; 
         document.getElementsByTagName('body')[0].style.backgroundColor = "#fff";
         document.getElementsByTagName('body')[0].style.color = "black";
         
@@ -33,7 +33,7 @@ function changeMode() {
             }, 1000);
         }
 
-        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "linear-gradient( to left top, #ff9ff8, #ff9bd9, #ff9cbd, #ffa1a7, #ffa897, #ffac99, #ffb19b, #ffb59e, #ffb7ad, #ffbbbc, #fbbfc8, #f5c4d3 )";
+        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "linear-gradient(to left top, #d63447, #e34c3e, #ed6334, #f47b2a, #f7931e)";
         localStorage.setItem('darkMode', 0);
     }
 }

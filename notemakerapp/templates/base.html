@@ -1,8 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% block head %}
-    {% endblock head %}
+    {% block head %} {% endblock head %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,29 +17,30 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Charis+SIL&family=Uchen&display=swap"
+      rel="stylesheet"
+    />
     <title>Automated Note Maker</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
 
   <body>
     <header>
       <nav
         class="navbar navbar-expand-lg bg-dark navbar-dark"
-        style="background: linear-gradient(
-          to left top,
-          #ff9ff8,
-          #ff9bd9,
-          #ff9cbd,
-          #ffa1a7,
-          #ffa897,
-          #ffac99,
-          #ffb19b,
-          #ffb59e,
-          #ffb7ad,
-          #ffbbbc,
-          #fbbfc8,
-          #f5c4d3
-        );"
+        style="
+          background-image: linear-gradient(
+            to right top,
+            #bf9270,
+            #c59977,
+            #cba07e,
+            #d1a885,
+            #d7af8c
+          );
+        "
       >
         <div class="container-fluid">
           <a class="navbar-brand text-white" href="{% url 'home' %}">
@@ -67,14 +68,20 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'convert' %}">Conversion</a>
+                <a class="nav-link text-white" href="{% url 'convert' %}"
+                  >Conversion</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'editor' %}" >Editor</a>
+                <a class="nav-link text-white" href="{% url 'editor' %}"
+                  >Editor</a
+                >
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'collections' %}" >Collections</a>
+                <a class="nav-link text-white" href="{% url 'collections' %}"
+                  >Collections</a
+                >
               </li>
               {% endif %}
               <li class="nav-item dropdown">
@@ -109,6 +116,19 @@
                         class="form-check-input"
                         type="checkbox"
                         id="SaveToDrive"
+                      />
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="Sign Out"
+                        >Sign Out</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="Sign Out"
                       />
                     </div>
                   </li>
@@ -147,12 +167,12 @@
               Hello {{request.user}} !
             </button>
 
-            <form action="logout " method="post">
+            <!-- <form action="logout " method="post">
               {% csrf_token %}
               <button type="submit " class="btn btn-danger mx-2 my-2">
                 Logout
               </button>
-            </form>
+            </form> -->
             {% else %}
             <!-- Button to trigger login modal -->
             <button
@@ -205,7 +225,9 @@
         <div class="modal-dialog">
           <div
             class="modal-content"
-            style="background: linear-gradient(to left top,
+            style="
+              background: linear-gradient(
+                to left top,
                 #ff9ff8,
                 #ff9bd9,
                 #ff9cbd,
@@ -239,7 +261,7 @@
                 id="register"
                 enctype="multipart/form-data "
               >
-                {% csrf_token %} 
+                {% csrf_token %}
                 <div class="form-group">
                   <label for="name" class="my-2">Name</label>
                   <input
@@ -323,7 +345,8 @@
         <div class="modal-dialog">
           <div
             class="modal-content"
-            style="background: linear-gradient(
+            style="
+              background: linear-gradient(
                 to left top,
                 #ff9ff8,
                 #ff9bd9,

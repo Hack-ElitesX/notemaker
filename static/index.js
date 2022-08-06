@@ -23,8 +23,9 @@ function changeMode() {
         localStorage.setItem('darkMode', 1);
     }
     else {  // Light Mode
-        document.getElementsByClassName('container-fluid')[0].style.background = "linear-gradient(to left top, #d63447, #e34c3e, #ed6334, #f47b2a, #f7931e)"; 
-        document.getElementsByTagName('body')[0].style.backgroundColor = "#fff";
+        document.getElementsByClassName('container-fluid')[0].style.background = "background-image: linear-gradient(to left, #268ff9, #00a3fb, #00b4f3, #00c2e6, #22ced7);"; 
+        // document.getElementsByTagName('body')[0].style.backgroundColor = "#fff";
+        document.getElementsByTagName('body')[0].style.backgroundColor = "white";
         document.getElementsByTagName('body')[0].style.color = "black";
         
         if(window.location.pathname == "/editor") {
@@ -33,7 +34,7 @@ function changeMode() {
             }, 1000);
         }
 
-        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "linear-gradient(to left top, #d63447, #e34c3e, #ed6334, #f47b2a, #f7931e)";
+        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "background-image: linear-gradient(to left, #268ff9, #00a3fb, #00b4f3, #00c2e6, #22ced7)";
         localStorage.setItem('darkMode', 0);
     }
 }

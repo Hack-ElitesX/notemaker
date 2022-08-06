@@ -2,10 +2,10 @@
 
 <style>
   /* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
+  -------------------------------------------------- */
   body {
     font-family: "Uchen", serif;
-    
+    background-color: rgb(255, 255, 255);
   }
 
   /* Carousel base class */
@@ -31,7 +31,7 @@
   }
 
   /* MARKETING CONTENT
--------------------------------------------------- */
+  -------------------------------------------------- */
 
   /* Center align the text within the three columns below the carousel */
   .marketing .col-lg-4 {
@@ -49,7 +49,7 @@
   /* rtl:end:ignore */
 
   /* Featurettes
-------------------------- */
+  ------------------------- */
 
   .featurette-divider {
     margin: 5rem 0; /* Space out the Bootstrap <hr> more */
@@ -63,8 +63,23 @@
     letter-spacing: -0.05rem;
   }
 
+  #footer-text {
+    position: relative;
+    bottom: -350px;
+    padding: 5px 15px;
+    color: white;
+  }
+  #footer-text a {
+    color: #ffca03;
+    text-decoration: none;
+  }
+  /* footer {
+    position: relative;
+    top: -50px;
+  } */
+
   /* RESPONSIVE CSS
--------------------------------------------------- */
+  -------------------------------------------------- */
 
   @media (min-width: 40em) {
     /* Bump up size of carousel content */
@@ -86,9 +101,7 @@
   }
 </style>
 
-{% endblock head %} {% block content %}
-
-{% load static %}
+{% endblock head %} {% block content %} {% load static %}
 
 <div class="container-fluid m-0 p-0">
   <main>
@@ -128,7 +141,7 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <rect width="100%" height="100%" fill="#F5C6A5"></rect>
+            <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
           <div class="container">
@@ -153,7 +166,7 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <rect width="100%" height="100%" fill="#F5C6A5"></rect>
+            <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
           <div class="container">
@@ -180,7 +193,7 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <rect width="100%" height="100%" fill="#F5C6A5"></rect>
+            <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
           <div class="container">
@@ -224,66 +237,49 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#DEB6AB"></rect>
-            <text x="50%" y="50%" fill="#AC7088" dy=".3em">140x140</text>
-          </svg>
-
-          <h2>"Helps professionals take down notes with ease"</h2>
-          <p></p>
-          <p><a class="btn btn-secondary" href="#">View details »</a></p>
+          <div class="card" style="width: 22rem; border: none; background-color: transparent;
+          ">
+            <img
+              class="card-img-top"
+              src="{% static 'images/circle1.png' %}"
+              alt="Card image cap"
+            />
+            <h2 class="animate__animated animate__fadeInLeft animate__slow">
+              "Helps professionals to take down notes with ease"
+            </h2>
+          </div>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#DEB6AB"></rect>
-            <text x="50%" y="50%" fill="#AC7088" dy=".3em">140x140</text>
-          </svg>
-
-          <h2>For Online lecture make simple notes</h2>
-          <p></p>
-          <p><a class="btn btn-secondary" href="#">View details »</a></p>
+          <div class="card" style="width: 22rem; border: none;background-color: transparent;
+          ">
+            <img
+              class="card-img-top"
+              src="{% static 'images/circle2.png' %}"
+              alt="Card image cap"
+            />
+            <h2 class="animate__animated animate__fadeIn animate__delay-1s">
+              "For Online lecture make simple notes"
+            </h2>
+          </div>
         </div>
         <!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#DEB6AB"></rect>
-            <text x="50%" y="50%" fill="#AC7088" dy=".3em">140x140</text>
-          </svg>
-
-          <h2>Voice based PDf created</h2>
-          <p></p>
+          <div class="col-lg-4">
+            <div class="card" style="width: 22rem; border: none;background-color: transparent;
+            ">
+              <img
+                class="card-img-top"
+                src="{% static 'images/circle3.png' %}"
+                alt="Card image cap"
+              />
+              <h2 class="animate__animated animate__fadeInRight animate__slow">
+                "Voice based PDF created"
+              </h2>
+            </div>
+          </div>
+          {% comment %}
           <p><a class="btn btn-secondary" href="#">View details »</a></p>
+          {% endcomment %}
         </div>
         <!-- /.col-lg-4 -->
       </div>
@@ -308,10 +304,13 @@
           </p>
         </div>
         <div class="col-md-5">
-          
-          <img src="{% static 'images/nnn.jpg' %}" alt="poster1" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" /> 
-          
-        
+          <img
+            src="{% static 'images/poster1.png' %}"
+            alt="poster1"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
@@ -330,8 +329,13 @@
           </p>
         </div>
         <div class="col-md-5 order-md-1">
-          <img src="{% static 'images/nnn.jpg' %}" alt="poster1" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" /> 
-
+          <img
+            src="{% static 'images/poster22.png' %}"
+            alt="poster2"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
@@ -349,8 +353,13 @@
           </p>
         </div>
         <div class="col-md-5">
-          <img src="{% static 'images/nnn.jpg' %}" alt="poster1" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" /> 
-
+          <img
+            src="{% static 'images/poster3.png' %}"
+            alt="poster3"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
@@ -359,14 +368,23 @@
       <!-- /END THE FEATURETTES -->
     </div>
     <!-- /.container -->
-
     <!-- FOOTER -->
-    <footer class="container">
-      <p class="float-end"><a href="#">Back to top</a></p>
-      <p>
-        © 2022–2023 HexNotes <a href="#">Privacy</a> ·
-        <a href="#">Terms</a>&nbsp; All rights reserved &copy;
-      </p>
+
+    <footer class="container-fluid m-0 p-0">
+      <div id="footer-text">
+        <p class="float-end"><a href="#">Back to top</a></p>
+        <p>
+          © 2022–2023 HexNotes <a href="#">Privacy</a> ·
+          <a href="#">Terms</a>&nbsp; All rights reserved &copy;
+        </p>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#0099ff"
+          fill-opacity="1"
+          d="M0,192L17.1,197.3C34.3,203,69,213,103,181.3C137.1,149,171,75,206,58.7C240,43,274,85,309,112C342.9,139,377,149,411,133.3C445.7,117,480,75,514,85.3C548.6,96,583,160,617,181.3C651.4,203,686,181,720,176C754.3,171,789,181,823,192C857.1,203,891,213,926,218.7C960,224,994,224,1029,197.3C1062.9,171,1097,117,1131,122.7C1165.7,128,1200,192,1234,197.3C1268.6,203,1303,149,1337,117.3C1371.4,85,1406,75,1423,69.3L1440,64L1440,320L1422.9,320C1405.7,320,1371,320,1337,320C1302.9,320,1269,320,1234,320C1200,320,1166,320,1131,320C1097.1,320,1063,320,1029,320C994.3,320,960,320,926,320C891.4,320,857,320,823,320C788.6,320,754,320,720,320C685.7,320,651,320,617,320C582.9,320,549,320,514,320C480,320,446,320,411,320C377.1,320,343,320,309,320C274.3,320,240,320,206,320C171.4,320,137,320,103,320C68.6,320,34,320,17,320L0,320Z"
+        ></path>
+      </svg>
     </footer>
   </main>
 

@@ -12,6 +12,10 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
@@ -30,9 +34,23 @@
   <body>
     <header>
       <nav
-        class="navbar navbar-expand-lg bg-dark navbar-dark"
+        class="navbar navbar-expand-lg navbar-light"
         style="
-        background-image: linear-gradient(to left top, #d63447, #e34c3e, #ed6334, #f47b2a, #f7931e);
+          background-image: linear-gradient(
+            to left bottom,
+            #2d43c0,
+            #2f4cc7,
+            #3155cd,
+            #345ed4,
+            #3867da,
+            #3667dc,
+            #3566df,
+            #3366e1,
+            #2d5cdf,
+            #2a52dd,
+            #2946da,
+            #2c3ad7
+          );
         "
       >
         <div class="container-fluid">
@@ -150,8 +168,19 @@
                 placeholder="Search "
                 aria-label="Search "
               />
-              <button class="btn btn-outline-success" type="submit ">
-                Search
+              <button class="btn btn-light" type="submit ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F55353"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
               </button>
             </form>
 

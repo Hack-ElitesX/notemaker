@@ -130,3 +130,4 @@ dmypy.json
 
 # Ignores Media File
 notemakerapp/media/
+/media

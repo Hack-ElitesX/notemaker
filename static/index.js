@@ -1,51 +1,54 @@
 mode = document.getElementById('DarkMode');
 
+// Dark Mode if dm=1
 if(!localStorage.getItem('darkMode')) {
+    // Sets the dark mode to be off if user is opening the webpage for the first time
     localStorage.setItem('darkMode', 0);
-    dm = 0
+    dm = 0  
 } else {
+    // Gets the value of the dark mode from localStorage
     dm = localStorage.getItem('darkMode');
 }
 
+var contentNavBar = document.getElementsByClassName('container-fluid')[0];
+var outerLayer = document.getElementsByClassName('navbar navbar-expand-lg navbar-light')[0];
+var page = document.getElementsByTagName('body')[0];
 function changeMode() { 
-    if(mode.checked) {  // Dark Mode
-        document.getElementsByClassName('container-fluid')[0].style.background = "#212529"; 
-        document.getElementsByTagName('body')[0].style.backgroundColor = "#212529";
-        document.getElementsByTagName('body')[0].style.color = "white";
-        
-        if(window.location.pathname == "/editor") {
-            setTimeout(() => {
-                document.getElementsByClassName('ql-toolbar ql-snow')[0].style.backgroundColor = "rgb(200, 200, 200)"
-            }, 100);
-        }
+    // NOTE: lightModeTheme is changing background-image property of the element, so change accordingly (in terms of linear-gradient)
+    let lightModeNavbar = "linear-gradient(to left bottom,#2d43c0,#2f4cc7,#3155cd,#345ed4,#3867da,#3667dc,#3566df,#3366e1,#2d5cdf,#2a52dd,#2946da,#2c3ad7)";        // Change this to give different theme to light mode
 
-        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "#181818";
+    // NOTE: darkModeColor is changing the background property of the element, so change accordingly (in different color format like color name, hex, hsl, etc)
+    let darkModeNavbar = "#181818";         // Change this to give different theme to dark mode
+
+    let darkModeBody = "#161616"   // Body background color in dark mode
+    let lightModeBody = "#fff"  // Body background color in light mode
+    
+    let lightModeText = "black";         // Change this to give differetn text color in light mode
+    let darkModeText = "white"           // Change this to give different text color in dark mode
+
+    // For Dark Mode
+    if(mode.checked == true) {
+        outerLayer.style.background = darkModeNavbar;
+        outerLayer.style.backgroundImage = "none";
+        page.style.color = darkModeText;
+        page.style.background = darkModeBody;
+        
         localStorage.setItem('darkMode', 1);
     }
-    else {  // Light Mode
-        document.getElementsByClassName('container-fluid')[0].style.background = "background-image: linear-gradient(to left, #268ff9, #00a3fb, #00b4f3, #00c2e6, #22ced7);"; 
-        // document.getElementsByTagName('body')[0].style.backgroundColor = "#fff";
-        document.getElementsByTagName('body')[0].style.backgroundColor = "white";
-        document.getElementsByTagName('body')[0].style.color = "black";
+    // For Light Mode
+    else {
+        outerLayer.style.background = "none";
+        outerLayer.style.backgroundImage = lightModeNavbar;
+        page.style.color = lightModeText
+        page.style.background = lightModeBody;
         
-        if(window.location.pathname == "/editor") {
-            setTimeout(() => {
-                document.getElementsByClassName('ql-toolbar ql-snow')[0].style.backgroundColor = "#fff"
-            }, 1000);
-        }
-
-        document.getElementsByClassName("navbar navbar-expand-lg bg-dark navbar-dark")[0].style.background = "background-image: linear-gradient(to left, #268ff9, #00a3fb, #00b4f3, #00c2e6, #22ced7)";
         localStorage.setItem('darkMode', 0);
     }
 }
 
 setTimeout(() => {
-    if(dm==1){ // Dark Mode
-        mode.checked = true
-    }
-    else {
-        mode.checked = false
-    }
+    if(dm==1) {mode.checked = true;}
+    else {mode.checked = false;}
     changeMode();
 }, 0);
-mode.addEventListener('change', changeMode);
+mode.addEventListener('click', changeMode);

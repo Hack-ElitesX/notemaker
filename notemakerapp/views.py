@@ -91,13 +91,18 @@ def convert(request):
         fs.save(saveFileName, uploaded_file)
         
         text = audio_to_text(saveFileName)
-        return edit(request, text)
+        return edit(request,text)
+        # return redirect('editor',text=text)
     else:
         return render(request,'conversion.html')
 
 
-def editor(request):
-    return render(request,'edit.html')
+def editor(request,**params):
+    print("Length of parameters : "+ str(len(params)))
+    if len(params) == 0:
+        return render(request,'edit.html')
+    else:
+        return render(request,'edit.html',params)
 
 def collections(request):
     return render(request,'collections.html')
@@ -163,13 +168,17 @@ text_to_pdf arguments:
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
     # Initializes the Deepgram SDK
-    deepgram = Deepgram(DEEPGRAM_API_KEY)
+    try:
+        
+        deepgram = Deepgram(DEEPGRAM_API_KEY)
 
-    f = default_storage.open(os.path.join('', path), 'rb')
-    data = f.read()
-    f.close()
-    source = {'buffer': data, 'mimetype': 'audio/wav'}
-    response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+        f = default_storage.open(os.path.join('', path), 'rb')
+        data = f.read()
+        f.close()
+        source = {'buffer': data, 'mimetype': 'audio/wav'}
+        response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+    except Exception as e:
+        return HttpResponse(e)
 
     res = json.dumps(response["results"]["channels"][0], indent=1)
     pattern = r"\"transcript\": \".+\""
@@ -182,6 +191,6 @@ async def main(path):
 def audio_to_text(path):
     return asyncio.run(main(path))
 
-def edit(request, text):
-    param = { "text": text }
-    return render(request, 'edit.html', param)
+def edit(request,text):
+    param = {"text" :text}
+    return render(request,'edit.html',param)

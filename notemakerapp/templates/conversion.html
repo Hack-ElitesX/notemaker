@@ -1,28 +1,28 @@
 {% extends 'base.html'%} {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/fontawesome.min.js" crossorigin="anonymous"></script>
 <div class="container my-3 d-flex flex-center">
-    <form action="conversion" method="post" enctype="multipart/form-data">
+    <form action="/conversion" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       
       <div class="row justify-content-evenly m-auto mt-4" style="width:80vw; ">
         <div class="col-6">
           <div class="col-lg-6">
-            <input type="file" class="form-control" id="filename" name="file">
+            <input type="file" class="form-control" id="filename" name="file" accept=".wav,.mp3,.mp4" required>
           </div>        
         </div>
-        <div class="col-6 ">
+        {% comment %} <div class="col-6 ">
           <select class="form-select " aria-label="Default select example">
             <option selected>Select File Type</option>
             <option value="1">PDF</option>
             <option value="2">Word</option>
           
           </select>
+        </div> {% endcomment %}
+        <div class="col-6 ">
+          <button type="submit" class="btn btn-secondary">Convert</button>
         </div>
       </div>
 
-        <div class="d-flex justify-content-center flex-center my-4">
-          <button type="submit" class="btn btn-secondary">Convert</button>
-        </div>
       </div>
     </form>
 </div>

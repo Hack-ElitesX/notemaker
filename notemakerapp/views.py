@@ -91,8 +91,24 @@ def convert(request):
         fs.save(saveFileName, uploaded_file)
         
         text = audio_to_text(saveFileName)
-        return edit(request,text)
-        # return redirect('editor',text=text)
+        if(text == None):
+            return HttpResponse('''
+            <h1> Invalid File Format </h1>
+            <p> <b> Supported File Formats </b> </p>
+            <h3> Video </h3>
+            <ul>
+                <li> MP4 </li>
+                <li> MKV </li>
+            </ul>
+            <br>
+            <h3> Audio </h3>
+            <ul>
+                <li> MP3 </li>
+                <li> WAV </li>
+            </ul>
+            <a href="/conversion"> Go Back </a>
+            ''')
+        return edit(request, text)
     else:
         return render(request,'conversion.html')
 
@@ -167,14 +183,25 @@ text_to_pdf arguments:
 
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
-    # Initializes the Deepgram SDK
-    try:
-        
+    try:     
+        # Initializes the Deepgram SDK
         deepgram = Deepgram(DEEPGRAM_API_KEY)
 
         f = default_storage.open(os.path.join('', path), 'rb')
         data = f.read()
         f.close()
+
+        video_formats = ['mp4', 'mkv']
+        audio_formats = ['mp3', 'wav']
+        fileType = path.split('.')[1]
+        mimetype = ""
+        if(fileType in video_formats):
+            mimetype += "video/" + fileType
+        elif(fileType in audio_formats):
+            mimetype += "audio/" + fileType
+        else:
+            return None;
+
         source = {'buffer': data, 'mimetype': 'audio/wav'}
         response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
     except Exception as e:

@@ -103,32 +103,76 @@
 
 {% endblock head %} {% block content %} {% load static %}
 
-
-  <main class="container-fluid m-0 p-0">
+<div class="container-fluid m-0 p-0">
+  <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true" ></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="" ></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="" ></button>
+        <button
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="0"
+          class="active"
+          aria-label="Slide 1"
+          aria-current="true"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+          class=""
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#myCarousel"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+          class=""
+        ></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
+          <svg
+            class="bd-placeholder-img"
+            width="100%"
+            height="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
           <div class="container">
             <div class="carousel-caption text-start">
+          
+
+            
+<video autoplay muted loop id="myvedio"> 
+  <source src="{% static 'images/abc.mp4' %}" type="video/mp4" height=150,width=160>
+
+</video>
               <h1>Automated Note Maker</h1>
               <p>Make Your Online Lessons simple with Automated Note Maker</p>
               <p>
-                <button type="button" class="btn btn-lg btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up today</button>
+                <a class="btn btn-lg btn-outline-secondary" href="#"
+                  >Sign up today</a
+                >
               </p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
+          <svg
+            class="bd-placeholder-img"
+            width="100%"
+            height="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
@@ -147,7 +191,15 @@
           </div>
         </div>
         <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
+          <svg
+            class="bd-placeholder-img"
+            width="100%"
+            height="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
@@ -156,25 +208,29 @@
               <h1>One more for good collections.</h1>
               <p>View all your Notes.</p>
               <p>
-                <form action="collections" method="POST">
-                  {% csrf_token %}
-                  {% if user.is_authenticated %}
-                  <button type="submit" class="btn btn-lg btn-outline-secondary">Browse Collections</button>
-                  {% else %}
-                  <button type="button" class="btn btn-lg btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">Browse Collections</button>
-                  {% endif %}
-                  
-                </form>
+                <a class="btn btn-lg btn-outline-secondary" href="#"
+                  >Browse Collections</a
+                >
               </p>
             </div>
           </div>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev" >
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#myCarousel"
+        data-bs-slide="prev"
+      >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next" >
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#myCarousel"
+        data-bs-slide="next"
+      >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -188,8 +244,13 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <div class="card" style="width: 22rem; border: none; background-color: transparent; ">
-            <img class="card-img-top" src="{% static 'images/circle1.png' %}" alt="Card image cap" />
+          <div class="card" style="width: 22rem; border: none; background-color: transparent;
+          ">
+            <img
+              class="card-img-top"
+              src="{% static 'images/circle1.png' %}"
+              alt="Card image cap"
+            />
             <h2 class="animate__animated animate__fadeInLeft animate__slow">
               "Helps professionals to take down notes with ease"
             </h2>
@@ -197,8 +258,13 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <div class="card" style="width: 22rem; border: none;background-color: transparent;">
-            <img class="card-img-top" src="{% static 'images/circle2.png' %}" alt="Card image cap" />
+          <div class="card" style="width: 22rem; border: none;background-color: transparent;
+          ">
+            <img
+              class="card-img-top"
+              src="{% static 'images/circle2.png' %}"
+              alt="Card image cap"
+            />
             <h2 class="animate__animated animate__fadeIn animate__delay-1s">
               "For Online lecture make simple notes"
             </h2>
@@ -206,14 +272,21 @@
         </div>
         <!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <div class="card" style="width: 22rem; border: none;background-color: transparent; ">
-              <img class="card-img-top" src="{% static 'images/circle3.png' %}" alt="Card image cap"/>
+            <div class="card" style="width: 22rem; border: none;background-color: transparent;
+            ">
+              <img
+                class="card-img-top"
+                src="{% static 'images/circle3.png' %}"
+                alt="Card image cap"
+              />
               <h2 class="animate__animated animate__fadeInRight animate__slow">
                 "Voice based PDF created"
               </h2>
             </div>
           </div>
-          
+          {% comment %}
+          <p><a class="btn btn-secondary" href="#">View details »</a></p>
+          {% endcomment %}
         </div>
         <!-- /.col-lg-4 -->
       </div>
@@ -223,7 +296,7 @@
 
       <hr class="featurette-divider" />
 
-      <div class="row featurette mx-4">
+      <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">
             Organize your lectures.<span class="text-muted">
@@ -238,13 +311,19 @@
           </p>
         </div>
         <div class="col-md-5">
-          <img src="{% static 'images/poster1.png' %}" alt="poster1" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
+          <img
+            src="{% static 'images/poster1.png' %}"
+            alt="poster1"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
       <hr class="featurette-divider" />
 
-      <div class="row featurette mx-4">
+      <div class="row featurette">
         <div class="col-md-7 order-md-2">
           <h2 class="featurette-heading">
             Oh yeah, it’s that good.
@@ -257,13 +336,19 @@
           </p>
         </div>
         <div class="col-md-5 order-md-1">
-          <img src="{% static 'images/poster22.png' %}" alt="poster2" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
+          <img
+            src="{% static 'images/jaya.jpg' %}"
+            alt="poster2"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
       <hr class="featurette-divider" />
 
-      <div class="row featurette mx-4">
+      <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">
             And lastly, this one. <span class="text-muted">Checkmate.</span>
@@ -275,7 +360,13 @@
           </p>
         </div>
         <div class="col-md-5">
-          <img src="{% static 'images/poster3.png' %}" alt="poster3" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
+          <img
+            src="{% static 'images/poster3.png' %}"
+            alt="poster3"
+            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
 
@@ -283,20 +374,10 @@
 
       <!-- /END THE FEATURETTES -->
     </div>
-    <!-- /.container -->
-    <!-- FOOTER -->
-
+    
+    
   </main>
-  <footer class="container-fluid m-0 p-0">
-    <div id="footer-text">
-      <p class="float-end"><a href="#">Back to top</a></p>
-      <p> © 2022–2023 HexNotes <a href="#">Privacy</a> · <a href="#">Terms</a>&nbsp; All rights reserved &copy;
-      </p>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path fill="#0099ff" fill-opacity="1" d="M0,192L17.1,197.3C34.3,203,69,213,103,181.3C137.1,149,171,75,206,58.7C240,43,274,85,309,112C342.9,139,377,149,411,133.3C445.7,117,480,75,514,85.3C548.6,96,583,160,617,181.3C651.4,203,686,181,720,176C754.3,171,789,181,823,192C857.1,203,891,213,926,218.7C960,224,994,224,1029,197.3C1062.9,171,1097,117,1131,122.7C1165.7,128,1200,192,1234,197.3C1268.6,203,1303,149,1337,117.3C1371.4,85,1406,75,1423,69.3L1440,64L1440,320L1422.9,320C1405.7,320,1371,320,1337,320C1302.9,320,1269,320,1234,320C1200,320,1166,320,1131,320C1097.1,320,1063,320,1029,320C994.3,320,960,320,926,320C891.4,320,857,320,823,320C788.6,320,754,320,720,320C685.7,320,651,320,617,320C582.9,320,549,320,514,320C480,320,446,320,411,320C377.1,320,343,320,309,320C274.3,320,240,320,206,320C171.4,320,137,320,103,320C68.6,320,34,320,17,320L0,320Z" ></path>
-    </svg>
-  </footer>
 
+</div>
 
 {% endblock %}

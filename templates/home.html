@@ -107,72 +107,31 @@
   <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide-to="0"
-          class="active"
-          aria-label="Slide 1"
-          aria-current="true"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-          class=""
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#myCarousel"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-          class=""
-        ></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true" ></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="" ></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="" ></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <svg
-            class="bd-placeholder-img"
-            width="100%"
-            height="100%"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
           <div class="container">
             <div class="carousel-caption text-start">
-          
-
-            
-<video autoplay muted loop id="myvedio"> 
-  <source src="{% static 'images/abc.mp4' %}" type="video/mp4" height=150,width=160>
-
-</video>
+              <video autoplay muted loop id="myvedio"> 
+               <source src="{% static 'images/abc.mp4' %}" type="video/mp4" height=150,width=160>
+              </video>
               <h1>Automated Note Maker</h1>
               <p>Make Your Online Lessons simple with Automated Note Maker</p>
               <p>
-                <a class="btn btn-lg btn-outline-secondary" href="#"
-                  >Sign up today</a
-                >
+                <a class="btn btn-lg btn-outline-secondary" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up today</a>
               </p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <svg
-            class="bd-placeholder-img"
-            width="100%"
-            height="100%"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
@@ -191,15 +150,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <svg
-            class="bd-placeholder-img"
-            width="100%"
-            height="100%"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
+          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
 
@@ -216,21 +167,11 @@
           </div>
         </div>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#myCarousel"
-        data-bs-slide="prev"
-      >
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev" >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#myCarousel"
-        data-bs-slide="next"
-      >
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next" >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -244,13 +185,8 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <div class="card" style="width: 22rem; border: none; background-color: transparent;
-          ">
-            <img
-              class="card-img-top"
-              src="{% static 'images/circle1.png' %}"
-              alt="Card image cap"
-            />
+          <div class="card" style="width: 22rem; border: none; background-color: transparent; ">
+            <img class="card-img-top" src="{% static 'images/circle1.png' %}" alt="Card image cap" />
             <h2 class="animate__animated animate__fadeInLeft animate__slow">
               "Helps professionals to take down notes with ease"
             </h2>
@@ -258,13 +194,8 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <div class="card" style="width: 22rem; border: none;background-color: transparent;
-          ">
-            <img
-              class="card-img-top"
-              src="{% static 'images/circle2.png' %}"
-              alt="Card image cap"
-            />
+          <div class="card" style="width: 22rem; border: none;background-color: transparent;">
+            <img class="card-img-top" src="{% static 'images/circle2.png' %}" alt="Card image cap" />
             <h2 class="animate__animated animate__fadeIn animate__delay-1s">
               "For Online lecture make simple notes"
             </h2>
@@ -272,25 +203,17 @@
         </div>
         <!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <div class="card" style="width: 22rem; border: none;background-color: transparent;
-            ">
-              <img
-                class="card-img-top"
-                src="{% static 'images/circle3.png' %}"
-                alt="Card image cap"
+            <div class="card" style="width: 22rem; border: none;background-color: transparent;">
+              <img class="card-img-top" src="{% static 'images/circle3.png' %}" alt="Card image cap"
               />
               <h2 class="animate__animated animate__fadeInRight animate__slow">
                 "Voice based PDF created"
               </h2>
             </div>
           </div>
-          {% comment %}
-          <p><a class="btn btn-secondary" href="#">View details »</a></p>
-          {% endcomment %}
         </div>
-        <!-- /.col-lg-4 -->
       </div>
-      <!-- /.row -->
+      
 
       <!-- START THE FEATURETTES -->
 
@@ -298,26 +221,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">
-            Organize your lectures.<span class="text-muted">
-              It’ll blow your mind.</span
-            >
-          </h2>
-          <p class="lead">
-            To ensure you never forget what you have learnt, meet HexNotes, your
-            personal notes maker. All of your learning materials and notes are
-            collected in one location and are spaced apart. On your hand's palm
-            are all of your lectures.
-          </p>
+          <h2 class="featurette-heading">Organize your lectures.<span class="text-muted">  It’ll blow your mind.</span></h2>
+          <p class="lead"> To ensure you never forget what you have learnt, meet HexNotes, your personal notes maker. All of your learning materials and notes are collected in one location and are spaced apart. On your hand's palm are all of your lectures. </p>
         </div>
         <div class="col-md-5">
-          <img
-            src="{% static 'images/poster1.png' %}"
-            alt="poster1"
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
-            width="500"
-            height="500"
-          />
+          <img src="{% static 'images/poster1.png' %}" alt="poster1" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
         </div>
       </div>
 
@@ -325,24 +233,11 @@
 
       <div class="row featurette">
         <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading">
-            Oh yeah, it’s that good.
-            <span class="text-muted">See for yourself.</span>
-          </h2>
-          <p class="lead">
-            View all of your highlights and notes in a customized view that
-            allows you to filter them. To make studying easier, edit your
-            documents in the typeface or style that you choose.
-          </p>
+          <h2 class="featurette-heading"> Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span> </h2>
+          <p class="lead"> View all of your highlights and notes in a customized view that allows you to filter them. To make studying easier, edit your documents in the typeface or style that you choose. </p>
         </div>
         <div class="col-md-5 order-md-1">
-          <img
-            src="{% static 'images/jaya.jpg' %}"
-            alt="poster2"
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
-            width="500"
-            height="500"
-          />
+          <img src="{% static 'images/jaya.jpg' %}" alt="poster2" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
         </div>
       </div>
 
@@ -350,34 +245,17 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">
-            And lastly, this one. <span class="text-muted">Checkmate.</span>
-          </h2>
-          <p class="lead">
-            After you've completed taking notes, you can print, export to PDF,
-            or create a Word document with a custom layout. You can do the same
-            for your generated summaries.
-          </p>
+          <h2 class="featurette-heading"> And lastly, this one. <span class="text-muted">Checkmate.</span> </h2>
+          <p class="lead"> After you've completed taking notes, you can print, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries. </p>
         </div>
         <div class="col-md-5">
-          <img
-            src="{% static 'images/poster3.png' %}"
-            alt="poster3"
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded"
-            width="500"
-            height="500"
-          />
+          <img src="{% static 'images/poster3.png' %}" alt="poster3" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded" width="500" height="500" />
         </div>
       </div>
-
       <hr class="featurette-divider" />
-
       <!-- /END THE FEATURETTES -->
     </div>
-    
-    
   </main>
-
 </div>
 
 {% endblock %}

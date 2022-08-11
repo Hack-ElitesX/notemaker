@@ -29,6 +29,8 @@
     />
     <title>Automated Note Maker</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'index.js' %}"></script>
+
   </head>
 
   <body>
@@ -95,7 +97,7 @@
                 >
               </li>
               {% endif %}
-              <li class="nav-item dropdown">
+              <!-- <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle text-white"
                   href="#"
@@ -129,9 +131,9 @@
                         id="SaveToDrive"
                       />
                     </div>
-                  </li>
+                  </li> -->
 
-                  <li>
+                  <!-- <li>
                     <div class="form-check form-switch">
                       <label class="form-check-label" for="Sign Out"
                         >Sign Out</label
@@ -142,33 +144,22 @@
                         id="Sign Out"
                       />
                     </div>
-                  </li>
-                  <li>
+                  </li> -->
+                  <!-- <li>
                     <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <div class="form-check form-switch">
-                      <label class="form-check-label" for="DefaultSettings"
-                        >Default Settings</label
-                      >
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="DefaultSettings"
-                      />
-                    </div>
-                  </li>
+                  </li> -->
+                  
                 </ul>
-              </li>
-            </ul>
+              </li> 
+            <!-- </ul>
             <form class="d-flex my-2" role="search ">
               <input
                 class="form-control mx-2"
                 type="search "
                 placeholder="Search "
                 aria-label="Search "
-              />
-              <button class="btn btn-light" type="submit ">
+              /> -->
+              <!-- <button class="btn btn-light" type="submit ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -184,10 +175,10 @@
               </button>
             </form>
 
-            {% if user.is_authenticated %}
-            <button type="button " class="btn btn-info mx-2 my-2">
+            {% if user.is_authenticated %} -->
+            <!-- <button type="button " class="btn btn-info mx-2 my-2">
               Hello {{request.user}} !
-            </button>
+            </button> -->
 
             <!-- <form action="logout " method="post">
               {% csrf_token %}
@@ -195,18 +186,18 @@
                 Logout
               </button>
             </form> -->
-            {% else %}
+            <!-- {% else %} -->
             <!-- Button to trigger login modal -->
-            <button
+            <!-- <button
               type="button"
               class="btn btn-success mx-2 my-2"
               data-bs-toggle="modal"
               data-bs-target="#loginModal"
             >
               Login
-            </button>
+            </button> -->
             <!-- Button to trigger signup modal -->
-            <button
+            <!-- <button
               type="button"
               class="btn btn-success mx-2 my-2"
               data-bs-toggle="modal"
@@ -217,7 +208,61 @@
             {% endif %}
           </div>
         </div>
-      </nav>
+      </nav> --> 
+
+
+      <!-- <mdb-navbar expand="large" dark color="purple">
+        <mdb-navbar-brand href="#"></mdb-navbar-brand>
+        <mdb-navbar-toggler>
+          <mdb-navbar-nav>
+            <mdb-nav-item href="#" active>Home</mdb-nav-item>
+            <mdb-nav-item href="#">Conversion</mdb-nav-item>
+            <mdb-nav-item class="disabled" href="#">Editor</mdb-nav-item>
+            <mdb-dropdown tag="li" class="nav-item">
+              <!-- <mdb-dropdown-toggle tag="a" navLink color="stylish" slot="toggle" waves-fixed>Dark Mode</mdb-dropdown-toggle> -->
+              <!-- <mdb-dropdown-menu>
+                <mdb-dropdown-item>Action</mdb-dropdown-item>
+                <mdb-dropdown-item>Another action</mdb-dropdown-item>
+                <mdb-dropdown-item>Something else here</mdb-dropdown-item>
+              </mdb-dropdown-menu> -->
+            <!-- </mdb-dropdown> -->
+          <!-- </mdb-navbar-nav> -->
+          <mdb-navbar-nav right>
+            <mdb-nav-item>
+              
+              <mdb-icon icon="envelope" />
+            </mdb-nav-item>
+            <mdb-dropdown tag="li" class="nav-item avatar" anchorClass="p-2">
+              <mdb-dropdown-toggle tag="a" navLink color="stylish" slot="toggle" waves-fixed>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                  class="rounded-circle z-depth-0"
+                  alt="avatar image"
+                  height="35"
+                />
+                
+
+                <!-- <li>
+                  <div class="form-check form-switch">
+                    <label class="form-check-label" for="Sign Out"
+                      >Sign Out</label
+                    >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="Sign Out"
+                    />
+                  </div>
+                </li> -->
+              </mdb-dropdown-toggle>
+              <!-- <mdb-dropdown-menu>
+                <mdb-dropdown-item>sign in</mdb-dropdown-item>
+                <mdb-dropdown-item>sign out</output></mdb-dropdown-item>
+              </mdb-dropdown-menu> -->
+            <!-- </mdb-dropdown> -->
+          </mdb-navbar-nav>
+        </mdb-navbar-toggler>
+      </mdb-navbar> 
     </header>
 
     <div class="loginSignup">

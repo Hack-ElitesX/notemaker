@@ -12,6 +12,7 @@ urlpatterns = [
     path('conversion', views.convert, name='convert'),
     path('editor', views.editor, name="editor"),
     path('collections', views.collections, name="collections")
+    
 
 ]
 if settings.DEBUG:

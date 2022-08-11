@@ -131,3 +131,7 @@ dmypy.json
 # Ignores Media File
 notemakerapp/media/
 /media
+
+# Ignores pychache
+/notemaker/__pycache__
+/notemakerapp/__pycache__

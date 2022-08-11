@@ -1,0 +1,483 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %} {% endblock head %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Charis+SIL&family=Uchen&display=swap"
+      rel="stylesheet"
+    />
+    <title>Automated Note Maker</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'index.js' %}"></script>
+
+  </head>
+
+  <body>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style="
+          background-image: linear-gradient(
+            to left bottom,
+            #2d43c0,
+            #2f4cc7,
+            #3155cd,
+            #345ed4,
+            #3867da,
+            #3667dc,
+            #3566df,
+            #3366e1,
+            #2d5cdf,
+            #2a52dd,
+            #2946da,
+            #2c3ad7
+          );
+        "
+      >
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="{% url 'home' %}">
+            <strong>HexNotes</strong></a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white"
+                  aria-current="page"
+                  href="{% url 'home' %}"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'convert' %}"
+                  >Conversion</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'editor' %}"
+                  >Editor</a
+                >
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'collections' %}"
+                  >Collections</a
+                >
+              </li>
+              {% endif %}
+              <!-- <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle text-white"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Settings
+                </a>
+                <ul class="dropdown-menu px-2" style="width: 200px">
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="DarkMode"
+                        >Dark Mode</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="DarkMode"
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="SaveToDrive"
+                        >Save to Drive</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="SaveToDrive"
+                      />
+                    </div>
+                  </li> -->
+
+                  <!-- <li>
+                    <div class="form-check form-switch">
+                      <label class="form-check-label" for="Sign Out"
+                        >Sign Out</label
+                      >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="Sign Out"
+                      />
+                    </div>
+                  </li> -->
+                  <!-- <li>
+                    <hr class="dropdown-divider" />
+                  </li> -->
+                  
+                </ul>
+              </li> 
+            <!-- </ul>
+            <form class="d-flex my-2" role="search ">
+              <input
+                class="form-control mx-2"
+                type="search "
+                placeholder="Search "
+                aria-label="Search "
+              /> -->
+              <!-- <button class="btn btn-light" type="submit ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F55353"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
+              </button>
+            </form>
+
+            {% if user.is_authenticated %} -->
+            <!-- <button type="button " class="btn btn-info mx-2 my-2">
+              Hello {{request.user}} !
+            </button> -->
+
+            <!-- <form action="logout " method="post">
+              {% csrf_token %}
+              <button type="submit " class="btn btn-danger mx-2 my-2">
+                Logout
+              </button>
+            </form> -->
+            <!-- {% else %} -->
+            <!-- Button to trigger login modal -->
+            <!-- <button
+              type="button"
+              class="btn btn-success mx-2 my-2"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              Login
+            </button> -->
+            <!-- Button to trigger signup modal -->
+            <!-- <button
+              type="button"
+              class="btn btn-success mx-2 my-2"
+              data-bs-toggle="modal"
+              data-bs-target="#signupModal"
+            >
+              SignUp
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </nav> --> 
+
+
+      <!-- <mdb-navbar expand="large" dark color="purple">
+        <mdb-navbar-brand href="#"></mdb-navbar-brand>
+        <mdb-navbar-toggler>
+          <mdb-navbar-nav>
+            <mdb-nav-item href="#" active>Home</mdb-nav-item>
+            <mdb-nav-item href="#">Conversion</mdb-nav-item>
+            <mdb-nav-item class="disabled" href="#">Editor</mdb-nav-item>
+            <mdb-dropdown tag="li" class="nav-item">
+              <!-- <mdb-dropdown-toggle tag="a" navLink color="stylish" slot="toggle" waves-fixed>Dark Mode</mdb-dropdown-toggle> -->
+              <!-- <mdb-dropdown-menu>
+                <mdb-dropdown-item>Action</mdb-dropdown-item>
+                <mdb-dropdown-item>Another action</mdb-dropdown-item>
+                <mdb-dropdown-item>Something else here</mdb-dropdown-item>
+              </mdb-dropdown-menu> -->
+            <!-- </mdb-dropdown> -->
+          <!-- </mdb-navbar-nav> -->
+          <mdb-navbar-nav right>
+            <mdb-nav-item>
+              
+              <mdb-icon icon="envelope" />
+            </mdb-nav-item>
+            <mdb-dropdown tag="li" class="nav-item avatar" anchorClass="p-2">
+              <mdb-dropdown-toggle tag="a" navLink color="stylish" slot="toggle" waves-fixed>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                  class="rounded-circle z-depth-0"
+                  alt="avatar image"
+                  height="35"
+                />
+                
+
+                <!-- <li>
+                  <div class="form-check form-switch">
+                    <label class="form-check-label" for="Sign Out"
+                      >Sign Out</label
+                    >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="Sign Out"
+                    />
+                  </div>
+                </li> -->
+              </mdb-dropdown-toggle>
+              <!-- <mdb-dropdown-menu>
+                <mdb-dropdown-item>sign in</mdb-dropdown-item>
+                <mdb-dropdown-item>sign out</output></mdb-dropdown-item>
+              </mdb-dropdown-menu> -->
+            <!-- </mdb-dropdown> -->
+          </mdb-navbar-nav>
+        </mdb-navbar-toggler>
+      </mdb-navbar> 
+    </header>
+
+    <div class="loginSignup">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 "
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %}
+
+      <!--  SignUp Modal -->
+      <div
+        class="modal fade"
+        id="signupModal"
+        tabindex="-1 "
+        aria-labelledby="signupModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div
+            class="modal-content"
+            style="
+              background: linear-gradient(
+                to left top,
+                #ff9ff8,
+                #ff9bd9,
+                #ff9cbd,
+                #ffa1a7,
+                #ffa897,
+                #ffac99,
+                #ffb19b,
+                #ffb59e,
+                #ffb7ad,
+                #ffbbbc,
+                #fbbfc8,
+                #f5c4d3
+              );
+              color: white;
+            "
+          >
+            <div class="modal-header">
+              <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Modal Body -->
+              <form
+                action="/signup"
+                method="POST"
+                id="register"
+                enctype="multipart/form-data "
+              >
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="name" class="my-2">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="username" class="my-2">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email" class="my-2">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="example@example.com"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass1" class="my-2">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass1"
+                    name="pass1"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass2" class="my-2">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass2"
+                    name="pass2"
+                    placeholder="Confirm Password"
+                    required
+                  />
+                </div>
+
+                <div class="form-group my-2">
+                  <input
+                    type="checkbox"
+                    name="check-box"
+                    class="mx-2 my-2"
+                    required
+                  /><span>I agree to the terms &amp; conditions</span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Register</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  Login Modal -->
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1 "
+        aria-labelledby="loginModal"
+        aria-hidden="true "
+      >
+        <div class="modal-dialog">
+          <div
+            class="modal-content"
+            style="
+              background: linear-gradient(
+                to left top,
+                #ff9ff8,
+                #ff9bd9,
+                #ff9cbd,
+                #ffa1a7,
+                #ffa897,
+                #ffac99,
+                #ffb19b,
+                #ffb59e,
+                #ffb7ad,
+                #ffbbbc,
+                #fbbfc8,
+                #f5c4d3
+              );
+              color: white;
+            "
+          >
+            <div class="modal-header">
+              <h5 class="modal-title">Login Here</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form action="/login" method="POST" id="login">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="uname" class="my-2">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="uname"
+                    name="uname"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="pass" class="my-2">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="pass"
+                    name="pass"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-success my-2" required>
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% load static %}
+    <script src="{% static 'index.js' %}" type="text/javascript"></script>
+    {% block content %} {% endblock content %}
+  </body>
+</html>

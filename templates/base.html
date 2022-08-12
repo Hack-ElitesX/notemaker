@@ -18,6 +18,13 @@
     <title>Automated Note Maker</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script src="{% static 'index.js' %}"></script>
+    <style>
+      @media screen and (max-width: 500px) {
+        #profile-modal-dialog-box{
+          float: none;
+        }
+      }
+    </style>
     
 
   </head>
@@ -54,9 +61,9 @@
               {% else %}
               <form action="#" class="d-flex">
                 <!-- Button to trigger login modal -->
-                <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal" > Login </button>
+                <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal" style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);" > Login </button>
                 <!-- Button to trigger signup modal -->
-                <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#signupModal" > SignUp </button>
+                <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#signupModal"  style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);"> SignUp </button>
               </form>
                 {% endif %}
             </ul>
@@ -64,11 +71,21 @@
         </div>
       </nav> 
     </header>
+      
+    <div class="loginSignup">
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 " role="alert" >
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+      </div>
+      {% endfor %} {% endif %}
+
+      <!-- Profile Modal  -->
       {% if user.is_authenticated %}
-      <div class="modal fade container" id="profileModal" tabindex="-1 " aria-labelledby="profileModal" aria-hidden="true" >
-        <div class="modal-dialog" style="float:right;margin:10px;">
-          <div class="modal-content">
-            <div class="card card-body m-2"  style="width:250px; max-height:fit-content; display: flex; align-items:center;">
+      <div class="modal fade" id="profileModal" tabindex="-1 " aria-labelledby="profileModal" aria-hidden="true" >
+        <div class="modal-dialog" style="float:right;margin:10px;" id="profile-modal-dialog-box">
+          <div class="modal-content" >
+            <div class="card card-body m-2" style="width:250px; max-height:fit-content; display: flex; align-items:center;" >
               <div style="text-align:center;">
                 <a type="button" class="btn btn-outline-light" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#profileModal" aria-expanded="false" >
                   <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0" alt="avatar image" height="35" />
@@ -88,7 +105,7 @@
 
               <form action="logout" method="post" class="mt-3">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-warning mx-2">
+                <button type="submit" class="btn btn-warning mx-2" style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);">
                   Logout
                 </button>
               </form> 
@@ -96,17 +113,7 @@
           </div>
         </div>
       </div>
-
       {% endif %}
-
-    <div class="loginSignup">
-      {% if messages %} {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 " role="alert" >
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
-      </div>
-      {% endfor %} {% endif %}
-
       <!--  SignUp Modal -->
       <div class="modal fade" id="signupModal" tabindex="-1 " aria-labelledby="signupModal" aria-hidden="true" >
         <div class="modal-dialog">
@@ -145,7 +152,7 @@
                   <input type="checkbox" name="check-box" class="mx-2 my-2" required /><span>I agree to the terms &amp; conditions</span>
                 </div>
 
-                <button type="submit" class="btn btn-success">Register</button>
+                <button type="submit" class="btn btn-success" style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);">Register</button>
               </form>
             </div>
           </div>
@@ -172,7 +179,7 @@
                   <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" required />
                 </div>
 
-                <button type="submit" class="btn btn-success my-2" required>
+                <button type="submit" class="btn btn-success my-2" required style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);">
                   Login
                 </button>
               </form>

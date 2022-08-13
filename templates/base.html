@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script src="{% static 'index.js' %}"></script>
     <style>
+      a::selection, strong::selection {
+        background: none;
+      }
       @media screen and (max-width: 500px) {
         #profile-modal-dialog-box{
           float: none;

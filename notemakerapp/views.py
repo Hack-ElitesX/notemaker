@@ -1,3 +1,6 @@
+from cgitb import html
+from fileinput import filename
+import mimetypes
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
@@ -109,16 +112,6 @@ def convert(request):
         return render(request,'conversion.html')
 
 
-def editor(request,**params):
-    print("Length of parameters : "+ str(len(params)))
-    if len(params) == 0:
-        return render(request,'edit.html')
-    else:
-        return render(request,'edit.html',params)
-
-def collections(request):
-    return render(request,'collections.html')
-
 def html_to_pdf(text, output, title=None, pageSize="A4"):
     options = {
         'title': title,
@@ -137,6 +130,28 @@ def html_to_docx(text, output):
     docx = parser.parse_html_string(text)
     docx.save(output)
 
+def downloadNote(request, html, type, pageSize, output):
+    if(type == "pdf"):
+        html_to_pdf(html, f'{output}.pdf', "Title", pageSize)
+    else:
+        html_to_docx(html, f'{output}.docx')
+    return redirect(f'/{output}.{type}')
+
+def editor(request,**params):
+    if(request.method == "POST"):
+        html = request.POST['text'];
+        type = request.POST['fileType'];
+        pageSize = request.POST['pageSize'];
+        output = os.path.join('', 'media/') + request.POST['file_name'];
+        downloadNote(request, html, type, pageSize, output)
+    if len(params) == 0:
+        return render(request,'edit.html')
+    else:
+        return render(request,'edit.html',params)
+
+def collections(request):
+    return render(request,'collections.html')
+    
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
     try:     

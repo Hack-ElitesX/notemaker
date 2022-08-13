@@ -127,9 +127,6 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = "member"
 LOGIN_URL = 'login'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'notemakerapp/media')
-MEDIA_URL = '/notemakerapp/media/'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 

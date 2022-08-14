@@ -1,6 +1,3 @@
-from cgitb import html
-from fileinput import filename
-import mimetypes
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
@@ -81,7 +78,7 @@ def handleLogout(request):
     else:
         return HttpResponse('404 - Not Found')
 
-def edit(request,text):
+def edit(request,text=""):
     param = {"text" :text}
     return render(request,'edit.html',param)
 
@@ -184,8 +181,7 @@ def convert(request):
             </ul>
             <a href="/conversion"> Go Back </a>
             ''')
-        # return render(request,'edit.html',param)
-        return redirect(edit, text=text)
+        return render(request, 'edit.html', {'text': text})
     else:
         return render(request,'conversion.html')
 

@@ -12,11 +12,11 @@ urlpatterns = [
     path('conversion', views.convert, name='convert'),
     path('editor', views.editor, name="editor"),
     path('collections', views.collections, name="collections"),
-    path(r'^edit/(?P<text>\w+?)/$', views.edit, name="editor"),
+    path('edit', views.edit, name="editor"),
     path('editor', views.editor, name="edit")
 
 ]
-# url(r'^link/(?P<backend>\w+?)/$', views.edit)
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

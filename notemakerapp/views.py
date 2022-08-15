@@ -1,3 +1,4 @@
+from genericpath import exists
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
@@ -92,12 +93,14 @@ def html_to_pdf(text, output, title=None, pageSize="A4"):
         'margin-left': '0.75in',
         'encoding': "UTF-8"
     }
+    print("Saving PDF file as:", output)
     pdf = pdfkit.from_string(text, output, options=options)
     return pdf  # Returns True if pdf created successfully
 
 def html_to_docx(text, output):
     parser = HtmlToDocx()
     docx = parser.parse_html_string(text)
+    print("Saving DOCX file as:", output)
     docx.save(output)
 
 global saveFileName
@@ -106,9 +109,13 @@ def downloadNote(request, html, type, pageSize, output):
         html_to_pdf(html, f'{output}', "Title", pageSize)
     else:
         html_to_docx(html, f'{output}')
-    os.remove(saveFileName)
+    # os.remove(saveFileName)
 
 def editor(request,**params):
+    if(not os.path.exists('media/pdf')):
+        os.mkdir(os.path.join('', 'media') + '/pdf')
+    if(not os.path.exists('media/word')):
+        os.mkdir(os.path.join('', 'media') + '/word')
     if(request.method == "POST"):
         html = request.POST['text'];
         type = request.POST['fileType'];
@@ -125,7 +132,7 @@ def editor(request,**params):
             print("Error Found: ", e)
 
         downloadNote(request, html, type, pageSize, output)
-        os.remove(output)
+        # os.remove(output)
     if len(params) == 0:
         return render(request,'edit.html')
     else:

@@ -123,8 +123,9 @@ def editor(request,**params):
             note.save()
         except Exception as e:
             print("Error Found: ", e)
-            
+
         downloadNote(request, html, type, pageSize, output)
+        os.remove(output)
     if len(params) == 0:
         return render(request,'edit.html')
     else:

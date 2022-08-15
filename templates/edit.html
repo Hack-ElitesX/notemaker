@@ -173,7 +173,7 @@ var quill = new Quill('#editor', {
 <script>
 	var type = "pdf";
 	var pageSize = "A4";
-	
+
 	// Changes File Type
 	function changeType(newType) {
 		type = newType
@@ -202,12 +202,13 @@ var quill = new Quill('#editor', {
 			{% endif %}
 			}
 		});
-		
+
 		setTimeout(() => {
 			let ext = (type == "pdf") ? "pdf" : "docx"
 			window.location.pathname = "/media/" + type + "/" + output + '.' + ext;
 		}, 1500);
 	});
 </script>
+
 
 {% endblock %}

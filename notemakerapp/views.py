@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login,logout
 from django.core.files.storage import FileSystemStorage
-
+from .models import Collections
 from uuid import uuid4
 from deepgram import Deepgram
 import asyncio, json
@@ -100,11 +100,13 @@ def html_to_docx(text, output):
     docx = parser.parse_html_string(text)
     docx.save(output)
 
+global saveFileName
 def downloadNote(request, html, type, pageSize, output):
     if(type == "pdf"):
         html_to_pdf(html, f'{output}', "Title", pageSize)
     else:
         html_to_docx(html, f'{output}')
+    os.remove(saveFileName)
 
 def editor(request,**params):
     if(request.method == "POST"):
@@ -112,6 +114,16 @@ def editor(request,**params):
         type = request.POST['fileType'];
         pageSize = request.POST['pageSize'];
         output = os.path.join('', 'media/') + type + '/' + request.POST['file_name'] + '.' + ("pdf" if type == "pdf" else "docx");
+        # If user is authenticated, save note for collections in DB
+        try:
+            username = request.POST['username']
+            title = request.POST['title']
+            desc = request.POST['desc']
+            note = Collections(username=username,title=title,desc=desc)
+            note.save()
+        except Exception as e:
+            print("Error Found: ", e)
+            
         downloadNote(request, html, type, pageSize, output)
     if len(params) == 0:
         return render(request,'edit.html')

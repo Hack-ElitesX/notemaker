@@ -170,6 +170,13 @@ var quill = new Quill('#editor', {
 <script>
 	var type = "pdf";
 	var pageSize = "A4";
+	// Changes File Type
+	function changeType(newType) {
+		type = newType
+	}
+	function changePageSize(newPageSize) {
+		pageSize = newPageSize
+	}
 
 	var downloadBtn = document.getElementById('download');
 	downloadBtn.addEventListener('click', () => {
@@ -183,7 +190,13 @@ var quill = new Quill('#editor', {
 				text: textHtml,
 				fileType: type,
 				pageSize: pageSize,
-				file_name: output
+				file_name: output,
+				{% if user.is_authenticated %}
+				username: '{{request.user}}',
+				title: 'Notes',
+				desc: textHtml,
+				{% endif %}
+				
 			}
 		});
 		
@@ -192,19 +205,33 @@ var quill = new Quill('#editor', {
 			let ext = (type == "pdf") ? "pdf" : "docx"
 			window.location.pathname = "/media/" + type + "/" + output + '.' + ext;
 		}, 1500);
+		
+		/* {% if user.is_authenticated %}
+		console.log("User is authenticated")
+		$.ajax({
+			type: "POST",
+			url: "/editor",
+			data: {
+				csrfmiddlewaretoken: '{{csrf_token}}',
+				username: '{{request.user}}',
+				title: 'Notes',
+				desc: textHtml
+			}
+		});
+		{% endif %} */
 	});
 
-	// Changes File Type
-	function changeType(newType) {
-		type = newType
-	}
-	function changePageSize(newPageSize) {
-		pageSize = newPageSize
-	}
+	
 	// var downloadArrow = document.getElementById('download-btn');
 	// downloadArrow.addEventListener('click', () => {
 	// 	console.log("Clicked!")
 	// });
+
+	{% comment %} downloadBtn.addEventListener('click', () => {
+		var textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
+		
+	}); {% endcomment %}
 </script>
+
 
 {% endblock %}

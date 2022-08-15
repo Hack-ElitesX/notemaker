@@ -3,18 +3,18 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/fontawesome.min.js"
   crossorigin="anonymous"></script>
-<div class="container-fluid d-flex mt-4" style="align-items: center;justify-content:center;height:80vh;">
+<div class="container-fluid d-flex mt-5" style="align-items: center;justify-content:center;height:80vh;">
   <div class="container my-3 d-flex flex-center">
     <form action="conversion" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div>
         <div id="before-convert" class="container">
           <div class="row">
-            <div class="col">
-              <img src="{% static '/images/imagea.jpg' %}" style="width:80%" class="rounded float-start m-5" alt="...">
+            <div class="col" style="width: 50%;">
+              <img src="{% static '/images/hex22.png' %}" style="width:80%" height="80%" class="rounded float-start mt-5" alt="...">
             </div>
-            <div class="col">
-              <img src="{% static '/images/jaishree.jpg' %}" style="width:80%" class="rounded float-end" alt="...">
+            <div class="col" style="width: 50%;">
+              <img src="{% static '/images/hex33.png' %}" style="width:80%" height="80%" class="rounded float-end mt-5" alt="...">
             </div>
           </div>
 
@@ -29,6 +29,16 @@
           <div class="d-flex justify-content-center flex-center my-4 ">
             <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
           </div>
+        </div>
+
+        <div>
+          <p> Need Help*
+            <br> 
+            Upload :
+            Want to save your audio or video recording into easily readable notes? Simply choose the desired file type and upload the file from your device.
+            <br>
+            Convert :
+            Uploaded the file? Next, merely click the convert button. This magical button transforms your audio or video file into your conveniently located note. Your note appears in an editor, allowing you to format it however you'd like. Adapt fonts, colours, and styles to your needs.</p>
         </div>
 
         <!-- Spinner -->
@@ -142,6 +152,8 @@
 {% comment %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  
+  
 {% endcomment %}
 
 {% endblock %}

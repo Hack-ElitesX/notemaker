@@ -10,8 +10,9 @@ urlpatterns = [
     path('logout', views.handleLogout, name='handleLogout'),
     path('login', views.handleLogin, name='handleLogin'),
     path('conversion', views.convert, name='convert'),
-    path('editor', views.editor, name="editor"),
-    path('collections', views.collections, name="collections")
+    path('editor', views.editor, name="edit"),
+    path('collections', views.collections, name="collections"),
+    path('edit', views.edit, name="editor")
     
 
 ]

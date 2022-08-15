@@ -121,7 +121,7 @@ def editor(request,**params):
         type = request.POST['fileType'];
         pageSize = request.POST['pageSize'];
         output = os.path.join('', 'media/') + type + '/' + request.POST['file_name'] + '.' + ("pdf" if type == "pdf" else "docx");
-        # If user is authenticated, save note for collections in DB
+        # New Code for testing
         try:
             username = request.POST['username']
             title = request.POST['title']
@@ -131,13 +131,14 @@ def editor(request,**params):
         except Exception as e:
             print("Error Found: ", e)
 
+    # return render(request,'collections.html')
         downloadNote(request, html, type, pageSize, output)
         # os.remove(output)
     if len(params) == 0:
         return render(request,'edit.html')
     else:
         return render(request,'edit.html',params)
-
+    
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
     try:     
@@ -206,4 +207,4 @@ def convert(request):
         return render(request,'conversion.html')
 
 def collections(request):
-    return render(request,'collections.html')
+    return render(request,'collections.html') 

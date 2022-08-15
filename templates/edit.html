@@ -21,8 +21,8 @@
 		padding-left: 5px;
 		border-radius: 8px;
 		box-shadow: none;
-		border: none;
-		border-bottom: 1px solid gray;
+		/* border: none;
+		border-bottom: 1px solid gray; */
 		outline: none;
 	}
 	#break {
@@ -56,38 +56,26 @@
 		</div>
 		<hr id="break">
 		<div id="options" class="col-2 mx-auto">
-			<!-- <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark">Primary</button> -->
-				<!-- <select id="Myselect" class="form-select rounded-5 btn-outline-primary btn" aria-label="Default select example" > 
-				  <option selected>Select File Type</option>
-				  <option value="1">PDF</option>
-				  <option value="2">Word</option>
-				
-				</select> -->
-		
-				<!-- <select id="Myselect" class="form-select rounded-5 border-2 btn mt-4" aria-label="Default select example" > 
-					<option selected>Select page size</option>
-					<option value="1">A3</option>
-					<option value="2">A4</option>
-				  
-				  </select> -->
-	  
-				  <div class="dropdown mx-5">
+			
+				<!-- <div class="dropdown mx-5">
 					<button class="btn btn-primary dropdown-toggle mx" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					  File Type
+					File Type
 					</button>
 					<ul class="dropdown-menu dropdown-menu-primary" aria-labelledby="dropdownMenuButton2">
-					  <li><a class="dropdown-item" onclick="changeType('pdf')">PDF</a></li>
-					  <li><a class="dropdown-item" onclick="changeType('word')">Word</a></li>
-					 
+					<li><a class="dropdown-item" onclick="changeType('pdf')">PDF</a></li>
+					<li><a class="dropdown-item" onclick="changeType('word')">Word</a></li>
+					
 					</ul>
-				  </div>
+				</div> -->
 
-				  <div class="dropdown mt-4 mx-5">
+
+				<!-- <div class="dropdown mt-4 mx-5">
 					<button class="btn btn-primary dropdown-toggle mx" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					  Page Size
+					Page Size
 					</button>
+					<br>
 					<ul class="dropdown-menu dropdown-menu-primary" aria-labelledby="dropdownMenuButton2">
-					  <li><a class="dropdown-item" onclick="changePageSize('A3')" value="A3">A3</a></li>
+					<li><a class="dropdown-item" onclick="changePageSize('A3')" value="A3">A3</a></li>
 					  <li><a class="dropdown-item" onclick="changePageSize('A4')" value="A4">A4</a></li>
 					  <li><a class="dropdown-item" onclick="changePageSize('B1')" value="B1">B1</a></li>
 					  <li><a class="dropdown-item" onclick="changePageSize('B2')" value="B2">B2</a></li>
@@ -96,31 +84,46 @@
 					  <li><a class="dropdown-item" onclick="changePageSize('Legal')" value="Legal">Legal</a></li>
 					</ul>
 					<br />
-				  </div>
-				  <div>
-					<input id="fileName" type="name" placeholder="Enter FileName to Save"/>
-				  </div>
+				  </div> -->
+				  
+			
 
-				  <!-- Download Button -->
-				  <svg viewBox='0 0 100 50' width='300' height='100' fill='none' >
-					<circle id="download" cx='20'cy='35' r='15' fill='#0AA1DD' class='mainCircle' style="cursor: pointer;"></circle>
-					<!-- <circle cx='20' cy='35' r='15' stroke='#0AA1DD' stroke-width='.9' fill='url(#gradient)' class='mainCircleFill'></circle> -->
-					<!-- <rect x='17.5' y='32.5' width='5' height='5' stroke='none' fill='#0AA1DD' class='rect'></rect> -->
-					<path id="download-btn" d='M20,39 l3.5,-3.5 l0,0 M20,39 l-3.5,-3.5 l0,0 M20,39 l0,-7.5' stroke='#fff' stroke-linecap='round' stroke-width='.8' class='arrow' style="cursor: pointer;"></path>
-					<!-- <text x='55' y='36.5' fill='#0A1931' text-anchor='middle' font-size='6' font-family='Trirong' font-style='bold' letter-spacing='.2' class='text'>Download</text>
-					<path d='M50,25 h30 a10,10 0 0,1 10,10 a10,10 0 0,1 -10,10 s-30,0 -60,0 a10,10 0 0,1 -10,-10 a10,10 0 0,1 10,-10 h30' stroke='#0AA1DD' stroke-width='.7' fill='transparent' class='btn'></path>
-					<circle cx='20' cy='35' r='7.9' fill='#0AA1DD' fill-opacity='0' stroke='#0AA1DD' stroke-width='1.6' stroke-opacity='0' class='subCircle'></circle>
-					<circle cx='50' cy='26' r='0' fill='#0AA1DD' class='dot'></circle>
-					<linearGradient id='gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
-					<stop offset='98%' class='gradient' stop-color='transparent'/>
-					<stop offset='98%' class='gradient' stop-color='#00afd3'/>
-					</linearGradient> -->
-				</svg>
+				  <div class="row">
+
+					  <div class="col-2" style="width: 50%;">
+						  <a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">PDF</span></a>
+						</div>
+						<div class="col-2" style="width: 50%;">
+							<a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">WORD</span></a>
+						</div>
+					</div>
+					<select class="form-control m-2" name="page-size" id="page-size">
+						<option selected value="A4">Select Page Size</option>
+						<option value="A3">A3</option>
+						<option  value="A4">A4</option>
+						<option value="Letter">Letter</option>
+						<option value="Legal">Legal</option>
+					</select>
+					  
+					  <div>
+						<input id="fileName" type="name" placeholder="FileName to Save" class="form-control m-2"/>
+					  </div>
+					  <br>
+
+					<!-- <p>
+						<br> <strong>Download or print </strong> : <br> After you've completed taking notes, you can, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries.
+					</p> -->
+						<details class="dropdown">
+							<summary class="txt-primary" style="text-decoration: underline; text-decoration-color: blue;"><strong >Download or print </strong></summary>
+							<p> After you've completed taking notes, you can, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries.</p>
+						</details>
+				  
 		</div>
 		
 	</div>
 	
 </div>
+
 
 <!-- Include the Quill library -->
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -167,7 +170,7 @@ var quill = new Quill('#editor', {
 </script>
 
 <!-- Download Option -->
-<script>
+<!-- <script>
 	var type = "pdf";
 	var pageSize = "A4";
 
@@ -194,10 +197,7 @@ var quill = new Quill('#editor', {
 	function changePageSize(newPageSize) {
 		pageSize = newPageSize
 	}
-	// var downloadArrow = document.getElementById('download-btn');
-	// downloadArrow.addEventListener('click', () => {
-	// 	console.log("Clicked!")
-	// });
-</script>
+	
+</script> -->
 
 {% endblock %}

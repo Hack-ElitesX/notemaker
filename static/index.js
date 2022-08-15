@@ -81,4 +81,4 @@ setTimeout(() => {
     if(dm==1) {mode.checked = true;}
     changeMode();
     mode.addEventListener('change', changeMode);
-}, 50);
+}, 250);

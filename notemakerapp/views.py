@@ -1,6 +1,3 @@
-from cgitb import html
-from fileinput import filename
-import mimetypes
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
@@ -81,36 +78,9 @@ def handleLogout(request):
     else:
         return HttpResponse('404 - Not Found')
 
-def convert(request):
-    if request.method == "POST":
-        uploaded_file = request.FILES['file']
-        fs = FileSystemStorage()
-        token_var = uuid4()
-        saveFileName = str(token_var) + '_' + str(uploaded_file.name)
-        fs.save(saveFileName, uploaded_file)
-        
-        text = audio_to_text(saveFileName)
-        if(text == None):
-            return HttpResponse('''
-            <h1> Invalid File Format </h1>
-            <p> <b> Supported File Formats </b> </p>
-            <h3> Video </h3>
-            <ul>
-                <li> MP4 </li>
-                <li> MKV </li>
-            </ul>
-            <br>
-            <h3> Audio </h3>
-            <ul>
-                <li> MP3 </li>
-                <li> WAV </li>
-            </ul>
-            <a href="/conversion"> Go Back </a>
-            ''')
-        return edit(request, text)
-    else:
-        return render(request,'conversion.html')
-
+def edit(request,text=""):
+    param = {"text" :text}
+    return render(request,'edit.html',param)
 
 def html_to_pdf(text, output, title=None, pageSize="A4"):
     options = {
@@ -132,26 +102,22 @@ def html_to_docx(text, output):
 
 def downloadNote(request, html, type, pageSize, output):
     if(type == "pdf"):
-        html_to_pdf(html, f'{output}.pdf', "Title", pageSize)
+        html_to_pdf(html, f'{output}', "Title", pageSize)
     else:
-        html_to_docx(html, f'{output}.docx')
-    return redirect(f'/{output}.{type}')
+        html_to_docx(html, f'{output}')
 
 def editor(request,**params):
     if(request.method == "POST"):
         html = request.POST['text'];
         type = request.POST['fileType'];
         pageSize = request.POST['pageSize'];
-        output = os.path.join('', 'media/') + request.POST['file_name'];
+        output = os.path.join('', 'media/') + type + '/' + request.POST['file_name'] + '.' + ("pdf" if type == "pdf" else "docx");
         downloadNote(request, html, type, pageSize, output)
     if len(params) == 0:
         return render(request,'edit.html')
     else:
         return render(request,'edit.html',params)
 
-def collections(request):
-    return render(request,'collections.html')
-    
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
 async def main(path):
     try:     
@@ -189,6 +155,35 @@ async def main(path):
 def audio_to_text(path):
     return asyncio.run(main(path))
 
-def edit(request,text):
-    param = {"text" :text}
-    return render(request,'edit.html',param)
+def convert(request):
+    if request.method == "POST":
+        uploaded_file = request.FILES['file']
+        fs = FileSystemStorage()
+        token_var = uuid4()
+        saveFileName = str(token_var) + '_' + str(uploaded_file.name)
+        fs.save(saveFileName, uploaded_file)
+
+        text = audio_to_text(saveFileName)
+        if(text == None):
+            return HttpResponse('''
+            <h1> Invalid File Format </h1>
+            <p> <b> Supported File Formats </b> </p>
+            <h3> Video </h3>
+            <ul>
+                <li> MP4 </li>
+                <li> MKV </li>
+            </ul>
+            <br>
+            <h3> Audio </h3>
+            <ul>
+                <li> MP3 </li>
+                <li> WAV </li>
+            </ul>
+            <a href="/conversion"> Go Back </a>
+            ''')
+        return render(request, 'edit.html', {'text': text})
+    else:
+        return render(request,'conversion.html')
+
+def collections(request):
+    return render(request,'collections.html')

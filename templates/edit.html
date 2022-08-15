@@ -170,7 +170,7 @@ var quill = new Quill('#editor', {
 </script>
 
 <!-- Download Option -->
-<!-- <script>
+<script>
 	var type = "pdf";
 	var pageSize = "A4";
 
@@ -180,6 +180,7 @@ var quill = new Quill('#editor', {
 		let output = fileName.value
 		$.ajax({
 			type: "POST",
+			url: "/editor",
 			data: {
 				csrfmiddlewaretoken: '{{csrf_token}}',
 				text: textHtml,
@@ -188,6 +189,12 @@ var quill = new Quill('#editor', {
 				file_name: output
 			}
 		});
+		
+		var convFile
+		setTimeout(() => {
+			let ext = (type == "pdf") ? "pdf" : "docx"
+			window.location.pathname = "/media/" + type + "/" + output + '.' + ext;
+		}, 1500);
 	});
 
 	// Changes File Type
@@ -197,7 +204,6 @@ var quill = new Quill('#editor', {
 	function changePageSize(newPageSize) {
 		pageSize = newPageSize
 	}
-	
-</script> -->
+</script>
 
 {% endblock %}

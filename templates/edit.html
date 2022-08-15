@@ -170,25 +170,9 @@ var quill = new Quill('#editor', {
 </script>
 
 <!-- Download Option -->
-<!-- <script>
+<script>
 	var type = "pdf";
 	var pageSize = "A4";
-
-	var downloadBtn = document.getElementById('download');
-	downloadBtn.addEventListener('click', () => {
-		var textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
-		let output = fileName.value
-		$.ajax({
-			type: "POST",
-			data: {
-				csrfmiddlewaretoken: '{{csrf_token}}',
-				text: textHtml,
-				fileType: type,
-				pageSize: pageSize,
-				file_name: output
-			}
-		});
-	});
 
 	// Changes File Type
 	function changeType(newType) {
@@ -197,7 +181,34 @@ var quill = new Quill('#editor', {
 	function changePageSize(newPageSize) {
 		pageSize = newPageSize
 	}
-	
-</script> -->
+
+	var downloadBtn = document.getElementById('download');
+	downloadBtn.addEventListener('click', () => {
+		var textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
+		let output = fileName.value
+		$.ajax({
+			type: "POST",
+			url: "/editor",
+			data: {
+				csrfmiddlewaretoken: '{{csrf_token}}',
+				text: textHtml,
+				fileType: type,
+				pageSize: pageSize,
+				file_name: output,
+			{% if user.is_authenticated %}
+				username: '{{request.user}}',
+				title: 'Notes',
+				desc: textHtml,
+			{% endif %}
+			}
+		});
+
+		setTimeout(() => {
+			let ext = (type == "pdf") ? "pdf" : "docx"
+			window.location.pathname = "/media/" + type + "/" + output + '.' + ext;
+		}, 1500);
+	});
+</script>
+
 
 {% endblock %}

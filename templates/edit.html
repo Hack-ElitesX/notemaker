@@ -43,6 +43,7 @@
 		#options {
 			position: relative;
 			left: -25%;
+			width: 50%;
 		}
 	}
 </style>
@@ -56,72 +57,32 @@
 		</div>
 		<hr id="break">
 		<div id="options" class="col-2 mx-auto">
-			
-				<!-- <div class="dropdown mx-5">
-					<button class="btn btn-primary dropdown-toggle mx" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					File Type
-					</button>
-					<ul class="dropdown-menu dropdown-menu-primary" aria-labelledby="dropdownMenuButton2">
-					<li><a class="dropdown-item" onclick="changeType('pdf')">PDF</a></li>
-					<li><a class="dropdown-item" onclick="changeType('word')">Word</a></li>
-					
-					</ul>
-				</div> -->
-
-
-				<!-- <div class="dropdown mt-4 mx-5">
-					<button class="btn btn-primary dropdown-toggle mx" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					Page Size
-					</button>
-					<br>
-					<ul class="dropdown-menu dropdown-menu-primary" aria-labelledby="dropdownMenuButton2">
-					<li><a class="dropdown-item" onclick="changePageSize('A3')" value="A3">A3</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('A4')" value="A4">A4</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('B1')" value="B1">B1</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('B2')" value="B2">B2</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('Executive')" value="Executive">Executive</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('Letter')" value="Letter">Letter</a></li>
-					  <li><a class="dropdown-item" onclick="changePageSize('Legal')" value="Legal">Legal</a></li>
-					</ul>
-					<br />
-				  </div> -->
-				  
-			
-
-				  <div class="row">
-
-					  <div class="col-2" style="width: 50%;">
-						  <a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">PDF</span></a>
-						</div>
-						<div class="col-2" style="width: 50%;">
-							<a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">WORD</span></a>
-						</div>
-					</div>
-					<select class="form-control m-2" name="page-size" id="page-size">
-						<option selected value="A4">Select Page Size</option>
-						<option value="A3">A3</option>
-						<option  value="A4">A4</option>
-						<option value="Letter">Letter</option>
-						<option value="Legal">Legal</option>
-					</select>
-					  
-					  <div>
-						<input id="fileName" type="name" placeholder="FileName to Save" class="form-control m-2"/>
-					  </div>
-					  <br>
-
-					<!-- <p>
-						<br> <strong>Download or print </strong> : <br> After you've completed taking notes, you can, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries.
-					</p> -->
-						<details class="dropdown">
-							<summary class="txt-primary" style="text-decoration: underline; text-decoration-color: blue;"><strong >Download or print </strong></summary>
-							<p> After you've completed taking notes, you can, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries.</p>
-						</details>
-				  
+			<div class="row">
+			  	<div id="pdf-download" class="col-2" style="width: 50%;">
+				  <a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">PDF</span></a>
+				</div>
+				<div id="word-download" class="col-2" style="width: 50%;">
+					<a href="#" download class="jaya"><span class="first-child">Download</span><span class="last-child">WORD</span></a>
+				</div>
+			</div>
+			<select class="form-control m-2" name="page-size" id="page-size">
+				<option selected value="A4">Select Page Size</option>
+				<option value="A3">A3</option>
+				<option  value="A4">A4</option>
+				<option value="Letter">Letter</option>
+				<option value="Legal">Legal</option>
+			</select>
+			  
+			<div>
+				<input id="fileName" type="name" placeholder="FileName to Save" class="form-control m-2"/>
+			</div>
+			<br>
+			<details class="dropdown">
+				<summary class="txt-primary" style="text-decoration: underline; text-decoration-color: blue;"><strong >Download or print </strong></summary>
+				<p> After you've completed taking notes, you can, export to PDF, or create a Word document with a custom layout. You can do the same for your generated summaries.</p>
+			</details>	  
 		</div>
-		
 	</div>
-	
 </div>
 
 
@@ -171,30 +132,21 @@ var quill = new Quill('#editor', {
 
 <!-- Download Option -->
 <script>
-	var type = "pdf";
-	var pageSize = "A4";
+	var pdfDownload = document.getElementById('pdf-download');
+	var wordDownload = document.getElementById('word-download');
 
-	// Changes File Type
-	function changeType(newType) {
-		type = newType
-	}
-	function changePageSize(newPageSize) {
-		pageSize = newPageSize
-	}
-
-	var downloadBtn = document.getElementById('download');
-	downloadBtn.addEventListener('click', () => {
-		var textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
-		let output = fileName.value
+	pdfDownload.addEventListener('click', () => {
+		let textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
+		let page_size = document.getElementById('page-size').value;
 		$.ajax({
 			type: "POST",
 			url: "/editor",
 			data: {
 				csrfmiddlewaretoken: '{{csrf_token}}',
 				text: textHtml,
-				fileType: type,
-				pageSize: pageSize,
-				file_name: output,
+				fileType: "pdf",
+				pageSize: page_size,
+				file_name: fileName.value,
 			{% if user.is_authenticated %}
 				username: '{{request.user}}',
 				title: 'Notes',
@@ -202,10 +154,32 @@ var quill = new Quill('#editor', {
 			{% endif %}
 			}
 		});
-
 		setTimeout(() => {
-			let ext = (type == "pdf") ? "pdf" : "docx"
-			window.location.pathname = "/media/" + type + "/" + output + '.' + ext;
+			window.location.pathname = "/media/pdf/" + fileName.value + '.pdf';
+		}, 1500);
+	});
+
+	wordDownload.addEventListener('click', () => {
+		let textHtml = document.getElementsByClassName('ql-editor')[0].innerHTML;
+		let page_size = document.getElementById('page-size').value;
+		$.ajax({
+			type: "POST",
+			url: "/editor",
+			data: {
+				csrfmiddlewaretoken: '{{csrf_token}}',
+				text: textHtml,
+				fileType: "word",
+				pageSize: page_size,	// Redundant (not required) but don't remove
+				file_name: fileName.value.replace(' ', '_'),
+			{% if user.is_authenticated %}
+				username: '{{request.user}}',
+				title: 'Notes',
+				desc: textHtml,
+			{% endif %}
+			}
+		});
+		setTimeout(() => {
+			window.location.pathname = "/media/word/" + fileName.value + '.docx';
 		}, 1500);
 	});
 </script>

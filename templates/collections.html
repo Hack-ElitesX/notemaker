@@ -2,7 +2,20 @@
 
 {% block content %}
 
-<div class="container my-3">
+<div class="row d-flex ">
+{% for note in notes %}
+  <div class="col">
+    <div class="card" style="width: 22rem; height: 22rem; overflow: ellipsis;display: inline-block;">
+        <div class="card-body">
+          <h5 class="card-title">{{note.title}}</h5>
+          <div class="card-text" style="height: 14rem;width: 20rem; word-wrap: break-word;overflow: hidden;line-height: 1.5;text-align: justify;display: inline-block">{{note.desc}}</div>
+          <a href="" class="btn btn-primary">Open</a>
+        </div>
+  </div>
+{% endfor %}
+</div>
+
+{% comment %} <div class="container my-3">
     <div class="row d-flex justify-content-around">
         <div class="col-3">
             <div class="card" style="width: 22rem; height: 22rem; overflow: ellipsis;">
@@ -15,17 +28,17 @@
         </div>
 
         <div class="col-3">
-            <div class="card" style="width: 22rem; height: 22rem; text-overflow: ellipsis;">
+            <div class="card" style="width: 22rem; height: 22rem;overflow: hidden;text-overflow: ellipsis;display: inline-block; ">
                 <div class="card-body">
                   <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae earum illum fugit reprehenderit voluptas sit blanditiis dignissimos excepturi laboriosam sint? Iure id, tenetur omnis accusantium suscipit minima eum ea nisi fugit. Molestiae mollitia modi voluptatem perspiciatis, ducimus, officiis quo rem at corporis autem ullam, optio obcaecati voluptate ratione. Praesentium, molestiae iure provident impedit eveniet ut. Quibusdam beatae molestias quisquam totam necessitatibus nemo, consequuntur accusamus doloribus adipisci nihil asperiores id dolore atque harum magnam reprehenderit aspernatur minus, assumenda dicta. Explicabo nihil quos, voluptatibus commodi, debitis aspernatur optio tenetur assumenda laborum mollitia magni saepe asperiores, qui labore dolore consectetur cum id ipsa.</p>
+                  <p class="card-text p-2" style="height: 14rem;width: 20rem; word-wrap: break-word;overflow: hidden;line-height: 1.5;text-align: justify;" >Some quick example text to build on the card title and make up the bulk of the card's content. Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae earum illum fugit reprehenderit voluptas sit blanditiis dignissimos excepturi laboriosam sint? Iure id, tenetur omnis accusantium suscipit minima eum ea nisi fugit. Molestiae mollitia modi voluptatem perspiciatis, ducimus, officiis quo rem at corporis autem ullam, optio obcaecati voluptate ratione. Praesentium, molestiae iure provident impedit eveniet ut. Quibusdam beatae molestias quisquam totam necessitatibus nemo, consequuntur accusamus doloribus adipisci nihil asperiores id dolore atque harum magnam reprehenderit aspernatur minus, assumenda dicta. Explicabo nihil quos, voluptatibus commodi, debitis aspernatur optio tenetur assumenda laborum mollitia magni saepe asperiores, qui labore dolore consectetur cum id ipsa.</p>
                   <a href="#" class="btn btn-primary">Open</a>
                 </div>
               </div>
         </div>
 
         <div class="col-3">
-            <div class="card" style="width: 22rem; height: 22rem; overflow: ellipsis;">
+            <div class="card" style="width: 22rem; height: 22rem; text-overflow: ellipsis;">
                 <div class="card-body">
                   <h5 class="card-title">Card title</h5>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -34,6 +47,6 @@
               </div>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 
 {% endblock content %}

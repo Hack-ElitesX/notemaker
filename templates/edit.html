@@ -149,8 +149,9 @@ var quill = new Quill('#editor', {
 				file_name: fileName.value,
 			{% if user.is_authenticated %}
 				username: '{{request.user}}',
-				title: 'Notes',
+				title: fileName.value,
 				desc: textHtml,
+				plain_text: document.getElementsByClassName('ql-editor')[0].innerText,
 			{% endif %}
 			}
 		});
@@ -173,8 +174,9 @@ var quill = new Quill('#editor', {
 				file_name: fileName.value.replace(' ', '_'),
 			{% if user.is_authenticated %}
 				username: '{{request.user}}',
-				title: 'Notes',
+				title: fileName.value,
 				desc: textHtml,
+				plain_text: document.getElementsByClassName('ql-editor')[0].innerText,
 			{% endif %}
 			}
 		});

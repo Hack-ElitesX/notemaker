@@ -1,4 +1,4 @@
-mode = document.getElementById('DarkMode');
+var mode = document.getElementById('DarkMode');
 
 // Dark Mode if dm=1
 if(!localStorage.getItem('darkMode')) {
@@ -13,6 +13,9 @@ if(!localStorage.getItem('darkMode')) {
 var contentNavBar = document.getElementsByClassName('container-fluid')[0];
 var outerLayer = document.getElementsByClassName('navbar navbar-expand-lg navbar-light')[0];
 var page = document.getElementsByTagName('body')[0];
+var modal_content = document.getElementsByClassName('modal-content')[0];
+var modal_inner = document.getElementsByClassName('card card-body m-2')[0];
+var carousel_rect = document.getElementsByTagName('rect');
 function changeMode() { 
     // NOTE: lightModeTheme is changing background-image property of the element, so change accordingly (in terms of linear-gradient)
     let lightModeNavbar = "linear-gradient(to left bottom,#2d43c0,#2f4cc7,#3155cd,#345ed4,#3867da,#3667dc,#3566df,#3366e1,#2d5cdf,#2a52dd,#2946da,#2c3ad7)";        // Change this to give different theme to light mode
@@ -33,6 +36,15 @@ function changeMode() {
         outerLayer.style.backgroundImage = "none";
         page.style.color = darkModeText;
         page.style.background = darkModeBody;
+        modal_content.style.background = darkModeBody;
+        modal_inner.style.background = darkModeBody;
+
+        // Changes carousel color
+        if(window.location.pathname == "/" || window.location.pathname == "") {
+            for(let i=0;i<carousel_rect.length;i++) {
+                carousel_rect[i].style.fill = "#191919"
+            }
+        }
         
         if(window.location.pathname == "/editor") {
             document.getElementById('editor').style.background = "#202c33"
@@ -46,6 +58,15 @@ function changeMode() {
         outerLayer.style.backgroundImage = lightModeNavbar;
         page.style.color = lightModeText
         page.style.background = lightModeBody;
+        modal_content.style.background = lightModeBody;
+        modal_inner.style.background = lightModeBody;
+
+        // Changes carousel color
+        if(window.location.pathname == "/" || window.location.pathname == "") {
+            for(let i=0;i<carousel_rect.length;i++) {
+                carousel_rect[i].style.fill = "#5EE6EB"
+            }
+        }
         
         if(window.location.pathname == "/editor") {
             document.getElementById('editor').style.background = "white" 
@@ -56,8 +77,8 @@ function changeMode() {
 }
 
 setTimeout(() => {
+    mode.checked = false;
     if(dm==1) {mode.checked = true;}
-    else {mode.checked = false;}
     changeMode();
-}, 0);
-mode.addEventListener('click', changeMode);
+    mode.addEventListener('change', changeMode);
+}, 250);

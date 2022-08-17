@@ -38,7 +38,7 @@
 
   <body>
     <header style="background-color:transparent;">
-      <nav class="navbar navbar-expand-lg navbar-light" style=" background-image: linear-gradient( to left bottom, #2d43c0, #2f4cc7, #3155cd, #345ed4, #3867da, #3667dc, #3566df, #3366e1, #2d5cdf, #2a52dd, #2946da, #2c3ad7 ); " >
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(to right bottom, #252425, #1f1f1f, #1a191a, #151415, #0e0d0e);" >
         <div class="container-fluid">
           <a class="navbar-brand text-white" href="{% url 'home' %}"><strong>HexNotes</strong></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" >
@@ -55,6 +55,11 @@
               <li class="nav-item" style="max-width: content-fit;">
                 <a class="nav-link text-white" href="{% url 'editor' %}" >Editor</a >
               </li>
+              {% if user.is_authenticated %} 
+              <li class="nav-item" style="max-width: content-fit;">
+                <a class="nav-link text-white" href="{% url 'collections' %}" >Collections</a >
+              </li>
+              {% endif %}
             </ul>
 
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0" >
@@ -68,9 +73,9 @@
               {% else %}
               <form action="#" class="d-flex">
                 <!-- Button to trigger login modal -->
-                <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal" style=" background-image: linear-gradient(to left bottom, #62e2c0, #58e1c7, #4fdfce, #48ded5, #42dcdb, #48dce3, #50dce9, #5adbef, #6fdbf6, #83dcfb, #96dcfe, #a7dcff);" > Login </button>
+                <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#loginModal" style="background-image: linear-gradient(to left top, #ff725e, #fc7b68, #f98372, #f68b7c, #f29386);" > Login </button>
                 <!-- Button to trigger signup modal -->
-                <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#signupModal"  style=" background-image: linear-gradient(to left bottom, #62e2c0, #58e1c7, #4fdfce, #48ded5, #42dcdb, #48dce3, #50dce9, #5adbef, #6fdbf6, #83dcfb, #96dcfe, #a7dcff);"> SignUp </button>
+                <button type="button" class="btn btn-success mx-2 " data-bs-toggle="modal" data-bs-target="#signupModal"  style="background-image: linear-gradient(to left top, #ff725e, #fc7b68, #f98372, #f68b7c, #f29386);"> SignUp </button>
               </form>
                 {% endif %}
             </ul>
@@ -112,7 +117,7 @@
 
               <form action="logout" method="post" class="mt-3">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-warning mx-2" style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);">
+                <button type="submit" class="btn btn-danger mx-2">
                   Logout
                 </button>
               </form> 
@@ -186,7 +191,7 @@
                   <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" required />
                 </div>
 
-                <button type="submit" class="btn btn-success my-2" required style=" background-image: linear-gradient(to right, #ded74f, #e3c63a, #e8b428, #eda218, #f08e10);">
+                <button type="submit" class="btn btn-success my-2" required style=" background-image: linear-gradient(to left top, #ff725e, #fc7b68, #f98372, #f68b7c, #f29386);">
                   Login
                 </button>
               </form>

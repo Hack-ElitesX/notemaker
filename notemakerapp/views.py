@@ -116,9 +116,9 @@ def downloadNote(request, html, type, pageSize, output):
 
 def editor(request,**params):
     if(not os.path.exists('media/pdf')):
-        os.mkdir(os.path.join('/', 'media') + '/pdf')
+        os.mkdir(os.path.join('', 'media') + '/pdf')
     if(not os.path.exists('media/word')):
-        os.mkdir(os.path.join('/', 'media') + '/word')
+        os.mkdir(os.path.join('', 'media') + '/word')
     if(request.method == "POST"):
         html = request.POST['text'];
         type = request.POST['fileType'];
@@ -211,6 +211,11 @@ def convert(request):
         return render(request,'conversion.html')
 
 def collections(request):
+    if(request.user == "AnonymousUser"):
+        return HttpResponse('''
+        <h2> User Unauntheticated </h2>
+        <p> Kindly <a href="home.html"> Login </a> / <a href=""> Register </a> to access collections page </p>
+        ''')
     collection = Collection.objects.filter(username=request.user)
     context = {'notes': collection}
     return render(request,'collections.html', context) 

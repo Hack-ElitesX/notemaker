@@ -18,10 +18,10 @@ var modal_inner = document.getElementsByClassName('card card-body m-2')[0];
 var carousel_rect = document.getElementsByTagName('rect');
 function changeMode() { 
     // NOTE: lightModeTheme is changing background-image property of the element, so change accordingly (in terms of linear-gradient)
-    let lightModeNavbar = "linear-gradient(to left bottom,#2d43c0,#2f4cc7,#3155cd,#345ed4,#3867da,#3667dc,#3566df,#3366e1,#2d5cdf,#2a52dd,#2946da,#2c3ad7)";        // Change this to give different theme to light mode
+    let lightModeNavbar = "#363638";        // Change this to give different theme to light mode
     
     // NOTE: darkModeColor is changing the background property of the element, so change accordingly (in different color format like color name, hex, hsl, etc)
-    let darkModeNavbar = "#181818";         // Change this to give different theme to dark mode
+    let darkModeNavbar = "background-image: linear-gradient(to right bottom, #252425, #1f1f1f, #1a191a, #151415, #0e0d0e);";         // Change this to give different theme to dark mode
     
     let darkModeBody = "#202020"   // Body background color in dark mode
     let lightModeBody = "#fff"  // Body background color in light mode
@@ -45,16 +45,22 @@ function changeMode() {
                 carousel_rect[i].style.fill = "#191919"
             }
         }
-        
-        if(window.location.pathname == "/editor") {
+        if(window.location.pathname == "/edit") {
             document.getElementById('editor').style.background = "#202c33"
+        }
+        if(window.location.pathname == "/collections") {
+            let card = document.getElementsByClassName('card m-2 notes');
+            for(let i=0;i<card.length;i++) {
+                card[i].style.backgroundColor = "#bddff2";
+            }
         }
 
         localStorage.setItem('darkMode', 1);
     }
     // For Light Mode
     else {
-        outerLayer.style.background = "none";
+        // outerLayer.style.background = "none";
+        outerLayer.style.background = lightModeNavbar
         outerLayer.style.backgroundImage = lightModeNavbar;
         page.style.color = lightModeText
         page.style.background = lightModeBody;
@@ -64,12 +70,18 @@ function changeMode() {
         // Changes carousel color
         if(window.location.pathname == "/" || window.location.pathname == "") {
             for(let i=0;i<carousel_rect.length;i++) {
-                carousel_rect[i].style.fill = "#5EE6EB"
+                carousel_rect[i].style.fill = "#FF725E"
             }
         }
         
-        if(window.location.pathname == "/editor") {
+        if(window.location.pathname == "/edit") {
             document.getElementById('editor').style.background = "white" 
+        }
+        if(window.location.pathname == "/collections") {
+            let card = document.getElementsByClassName('card m-2 notes');
+            for(let i=0;i<card.length;i++) {
+                card[i].style.backgroundColor = "white";
+            }
         }
 
         localStorage.setItem('darkMode', 0);

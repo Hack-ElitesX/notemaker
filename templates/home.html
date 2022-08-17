@@ -106,15 +106,10 @@
 <div class="container-fluid m-0 p-0">
   <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-      <!-- <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true" ></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="" ></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="" ></button>
-      </div> -->
       <div class="carousel-inner">
         <div class="carousel-item active">
           <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
-            <rect width="100%" height="100%" fill="#5EE6EB"></rect>
+            <rect width="100%" height="100%" fill="#ff725e"></rect>
           </svg>
 
           <div class="container">
@@ -131,16 +126,9 @@
           <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" >
             <rect width="100%" height="100%" fill="#5EE6EB"></rect>
           </svg>
-          <style>
-            {% comment %} .cla{
-              display: flex;
-              align-items: space-evenly;
-
-            } {% endcomment %}
-          </style>
 
           <div class="container">
-            <div class="carousel-caption text-end">
+            <div class="carousel-caption ">
               <h1>Audio to PDF.</h1>
               <p>
                 Basic Idea is to Convert voice based audio into word/ pdf format
@@ -165,9 +153,15 @@
               <p>
                 View all your Notes.
               </p>
+              {% if user.is_authenticated %}
               <p>
-                <a class="btn btn-lg btn-outline-secondary" bs-data-target="#more-text" >Browse Collections</a>
+                <a class="btn btn-lg btn-outline-secondary" bs-data-target="#more-text" href="{% url 'collections' %}">Browse Collections</a>
               </p>
+              {% else %}
+              <p>
+                <a class="btn btn-lg btn-outline-secondary" bs-data-target="#more-text" data-bs-toggle="modal" data-bs-target="#loginModal">Browse Collections</a>
+              </p>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -264,5 +258,5 @@
     </div>
   </main>
 </div>
-
+<a href="#"> Back To Top </a>
 {% endblock %}

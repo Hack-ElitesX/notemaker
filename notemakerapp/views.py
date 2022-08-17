@@ -4,7 +4,8 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate, login,logout
 from django.core.files.storage import FileSystemStorage
-from .models import Collections
+from .models import Collection
+import platform
 from uuid import uuid4
 from deepgram import Deepgram
 import asyncio, json
@@ -93,14 +94,16 @@ def html_to_pdf(text, output, title=None, pageSize="A4"):
         'margin-left': '0.75in',
         'encoding': "UTF-8"
     }
-    print("Saving PDF file as:", output)
-    pdf = pdfkit.from_string(text, output, options=options)
+    if(platform.system() == "Windows"):
+        wkhtml_path = pdfkit.configuration(wkhtmltopdf = "C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
+        pdf = pdfkit.from_string(text, output, options=options, configuration=wkhtml_path)
+    else:
+        pdf = pdfkit.from_string(text, output, options=options)
     return pdf  # Returns True if pdf created successfully
 
 def html_to_docx(text, output):
     parser = HtmlToDocx()
     docx = parser.parse_html_string(text)
-    print("Saving DOCX file as:", output)
     docx.save(output)
 
 global saveFileName
@@ -120,13 +123,14 @@ def editor(request,**params):
         html = request.POST['text'];
         type = request.POST['fileType'];
         pageSize = request.POST['pageSize'];
-        output = os.path.join('', 'media/') + type + '/' + request.POST['file_name'] + '.' + ("pdf" if type == "pdf" else "docx");
+        output = os.path.join('', 'media', type, request.POST['file_name']) + ('.' + ('pdf' if type=='pdf' else 'docx'));
         # New Code for testing
         try:
             username = request.POST['username']
             title = request.POST['title']
             desc = request.POST['desc']
-            note = Collections(username=username,title=title,desc=desc)
+            text = request.POST['plain_text']
+            note = Collection(username=username,title=title,desc=desc, text=text)
             note.save()
         except Exception as e:
             print("Error Found: ", e)
@@ -207,4 +211,11 @@ def convert(request):
         return render(request,'conversion.html')
 
 def collections(request):
-    return render(request,'collections.html') 
+    if(request.user == "AnonymousUser"):
+        return HttpResponse('''
+        <h2> User Unauntheticated </h2>
+        <p> Kindly <a href="home.html"> Login </a> / <a href=""> Register </a> to access collections page </p>
+        ''')
+    collection = Collection.objects.filter(username=request.user)
+    context = {'notes': collection}
+    return render(request,'collections.html', context) 

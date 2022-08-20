@@ -115,6 +115,8 @@ def downloadNote(request, html, type, pageSize, output):
     # os.remove(saveFileName)
 
 def editor(request,**params):
+    if(not os.path.exists('media/')):
+        os.mkdir(os.path.join('', 'media'))
     if(not os.path.exists('media/pdf')):
         os.mkdir(os.path.join('', 'media') + '/pdf')
     if(not os.path.exists('media/word')):
@@ -144,30 +146,32 @@ def editor(request,**params):
         return render(request,'edit.html',params)
     
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
-async def main(path):
-    try:     
-        # Initializes the Deepgram SDK
-        deepgram = Deepgram(DEEPGRAM_API_KEY)
+async def main(type, path, url):
+    # Initializes the Deepgram SDK
+    deepgram = Deepgram(DEEPGRAM_API_KEY)
+    if(type == 'file'):
+        try:     
+            f = default_storage.open(os.path.join('', path), 'rb')
+            data = f.read()
+            f.close()
 
-        f = default_storage.open(os.path.join('', path), 'rb')
-        data = f.read()
-        f.close()
+            video_formats = ['mp4', 'mkv']
+            audio_formats = ['mp3', 'wav']
+            fileType = path.split('.')[1]
+            mimetype = ""
+            if(fileType in video_formats):
+                mimetype += "video/" + fileType
+            elif(fileType in audio_formats):
+                mimetype += "audio/" + fileType
+            else:
+                return None;
 
-        video_formats = ['mp4', 'mkv']
-        audio_formats = ['mp3', 'wav']
-        fileType = path.split('.')[1]
-        mimetype = ""
-        if(fileType in video_formats):
-            mimetype += "video/" + fileType
-        elif(fileType in audio_formats):
-            mimetype += "audio/" + fileType
-        else:
-            return None;
-
-        source = {'buffer': data, 'mimetype': 'audio/wav'}
-        response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
-    except Exception as e:
-        return HttpResponse(e)
+            source = {'buffer': data, 'mimetype': 'audio/wav'}
+        except Exception as e:
+            return HttpResponse(e)
+    elif(type == 'url'):
+        source = {'url': url}
+    response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
 
     res = json.dumps(response["results"]["channels"][0], indent=1)
     pattern = r"\"transcript\": \".+\""
@@ -177,18 +181,24 @@ async def main(path):
     final_text = final_text.replace("\"transcript\": \"", '').replace("\"<>", '')
     return final_text
 
-def audio_to_text(path):
-    return asyncio.run(main(path))
+def audio_to_text(type, path=None, url=None):
+    return asyncio.run(main(type, path, url))
 
 def convert(request):
     if request.method == "POST":
-        uploaded_file = request.FILES['file']
-        fs = FileSystemStorage()
-        token_var = uuid4()
-        saveFileName = str(token_var) + '_' + str(uploaded_file.name)
-        fs.save(saveFileName, uploaded_file)
+        text = None
+        fileFormat = request.POST['format']
+        if(fileFormat == 'file'):
+            uploaded_file = request.FILES['file']
+            fs = FileSystemStorage()
+            token_var = uuid4()
+            saveFileName = str(token_var) + '_' + str(uploaded_file.name)
+            fs.save(saveFileName, uploaded_file)
+            text = audio_to_text('file', saveFileName)
+        elif(fileFormat == 'url'):
+            url = request.POST['url']
+            text = audio_to_text('url', url=url)
 
-        text = audio_to_text(saveFileName)
         if(text == None):
             return HttpResponse('''
             <h1> Invalid File Format </h1>

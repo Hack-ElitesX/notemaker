@@ -195,27 +195,27 @@ def convert(request):
             saveFileName = str(token_var) + '_' + str(uploaded_file.name)
             fs.save(saveFileName, uploaded_file)
             text = audio_to_text('file', saveFileName)
+            if(text == None):
+                return HttpResponse('''
+                <h1> Invalid File Format </h1>
+                <p> <b> Supported File Formats </b> </p>
+                <h3> Video </h3>
+                <ul>
+                    <li> MP4 </li>
+                    <li> MKV </li>
+                </ul>
+                <br>
+                <h3> Audio </h3>
+                <ul>
+                    <li> MP3 </li>
+                    <li> WAV </li>
+                </ul>
+                <a href="/conversion"> Go Back </a>
+                ''')
         elif(fileFormat == 'url'):
             url = request.POST['url']
             text = audio_to_text('url', url=url)
 
-        if(text == None):
-            return HttpResponse('''
-            <h1> Invalid File Format </h1>
-            <p> <b> Supported File Formats </b> </p>
-            <h3> Video </h3>
-            <ul>
-                <li> MP4 </li>
-                <li> MKV </li>
-            </ul>
-            <br>
-            <h3> Audio </h3>
-            <ul>
-                <li> MP3 </li>
-                <li> WAV </li>
-            </ul>
-            <a href="/conversion"> Go Back </a>
-            ''')
         return render(request, 'edit.html', {'text': text})
     else:
         return render(request,'conversion.html')

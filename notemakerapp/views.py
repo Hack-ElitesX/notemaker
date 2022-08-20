@@ -32,24 +32,27 @@ def handleSignup(request):
         # Checks for errorneous inputs
         #
         if len(username) > 15:
-            messages.error(request,"Username must be under 15 characters")
+            messages.warning(request,"Username must be under 15 characters")
             return redirect('home')
         
         if not username.isalnum():
-            messages.error(request,"Username only contains alpha-numeric characters")
+            messages.warning(request,"Username only contains alpha-numeric characters")
             return redirect('home')
         
         if password1 != password2 :
-            messages.error(request,"Passwords do not match")
+            messages.warning(request,"Passwords do not match")
             return redirect('home')
             
             
         # Create the user
-        my_user = User.objects.create_user(username=username,email=email,password=password1)
-        my_user.first_name = name
-        my_user.save()
-        messages.success(request,"Your Account has been created Successfully !")
-
+        try:
+            my_user = User.objects.create_user(username=username,email=email,password=password1)
+            my_user.first_name = name
+            my_user.save()
+            messages.success(request,"Your Account has been created Successfully !")
+        except:
+            messages.error(request,f"Username {username} already Exists !")
+        
         return redirect('home')
     else:
         return HttpResponse('404 - Not Found')

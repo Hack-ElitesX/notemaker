@@ -10,6 +10,7 @@ spinner.addEventListener('click', () => {
     during_conv.style.display = "inline-block";
 })
 
+// Change File Format
 let fileFormat = document.getElementById('format');
 fileFormat.addEventListener('change', () => {
 if(fileFormat.value == "file") {

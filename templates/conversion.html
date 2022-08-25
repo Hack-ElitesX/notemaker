@@ -3,10 +3,14 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/fontawesome.min.js"
   crossorigin="anonymous"></script>
+<style>
+  .format-input {
+    height: 40px;
+  }
+</style>
 <div class="container-fluid d-flex mt-5" style="align-items: center;justify-content:center;height:80vh;">
   <div class="container my-3 d-flex flex-center">
-    <form action="conversion" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
+    
       <div>
         <div id="before-convert" class="container">
           <div class="row">
@@ -17,143 +21,170 @@
               <img src="{% static '/images/hex33.png' %}" style="width:80%" height="80%" class="rounded float-end mt-5" alt="...">
             </div>
           </div>
-
-          <div class="row d-flex flex-center m-auto ">
-            <div class="col-sm">
-              <!-- <div class="col-lg-6"> -->
-              <input type="file" class="form-control" id="filename" name="file" accept=".mp3, .mp4, .wav, .mkv" required>
-              <!-- </div>         -->
+          <form action="conversion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row d-flex flex-center m-auto ">
+              <div class="col-sm">
+                <input type="file" class="form-control format-input" name="file" accept=".mp3, .mp4, .wav, .mkv">
+                <input type="text" class="form-control format-input" name="url" style="display: none" placeholder="Enter Video URL">
+              </div>
+              <div class="col-sm">
+                <select class="form-control" name="format" id="format">
+                  <option value=""> Select Input Type </option>
+                  <option selected value="file"> File </option>
+                  <option value="url"> URL </option>
+                </select>
+              </div>
             </div>
-          </div>
-  
-          <div class="d-flex justify-content-center flex-center my-4 ">
-            <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
-          </div>
+    
+            <div class="d-flex justify-content-center flex-center my-4 ">
+              <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
+            </div>
+          </form>
         </div>
-
-        <div>
-          <p> Need Help*
-            <br> 
-            Upload :
-            Want to save your audio or video recording into easily readable notes? Simply choose the desired file type and upload the file from your device.
-            <br>
-            Convert :
-            Uploaded the file? Next, merely click the convert button. This magical button transforms your audio or video file into your conveniently located note. Your note appears in an editor, allowing you to format it however you'd like. Adapt fonts, colours, and styles to your needs.</p>
-        </div>
-
-        <!-- Spinner -->
-        <div id="during-convert" style="display: none;">
-          <style>
-            .spin-container {
-              text-align: center;
-              margin-left: 30vw;
-              position: relative;
-              top: 340px;
-            }
-
-            .spin {
-              border: 3px solid #0D4B9F;
-              width: 200px;
-              height: 200px;
-              margin: 0 auto;
-              border-radius: 50%;
-              border-left-color: transparent;
-              border-right-color: transparent;
-              animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-            }
-
-            #loader2 {
-              border: 3px solid #E0EDFF;
-              width: 220px;
-              height: 220px;
-              position: relative;
-              top: -216px;
-              border-left-color: transparent;
-              border-right-color: transparent;
-              animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-            }
-
-            #loader3 {
-              border: 3px solid #005CDC;
-              width: 240px;
-              height: 240px;
-              position: relative;
-              top: -452px;
-              border-left-color: transparent;
-              border-right-color: transparent;
-              animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-            }
-
-            #loader4 {
-              border: 3px solid #6b95cf;
-              width: 260px;
-              height: 260px;
-              position: relative;
-              top: -708px;
-              border-left-color: transparent;
-              border-right-color: transparent;
-              animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-            }
-
-            @keyframes rotate {
-              0% {
-                transform: rotateZ(-360deg)
-              }
-
-              100% {
-                transform: rotateZ(0deg)
-              }
-            }
-
-            @keyframes rotate2 {
-              0% {
-                transform: rotateZ(360deg)
-              }
-
-              100% {
-                transform: rotateZ(0deg)
-              }
-            }
-
-            #text {
-              color: #D6E3F6;
-              font-family: Arial;
-              font-size: 15px;
-              position: relative;
-              top: -857px;
-            }
-          </style>
-          <div class="spin-container">
-            <div class="spin" id="loader"></div>
-            <div class="spin" id="loader2"></div>
-            <div class="spin" id="loader3"></div>
-            <div class="spin" id="loader4"></div>
-            <span id="text">CONVERTING...<br />This may take some time</span>
-          </div>
-        </div>
-
-
-        
+      
+      <div>
+        <p> Need Help*
+          <br> 
+          Upload :
+          Want to save your audio or video recording into easily readable notes? Simply choose the desired file type and upload the file from your device.
+          <br>
+          Convert :
+          Uploaded the file? Next, merely click the convert button. This magical button transforms your audio or video file into your conveniently located note. Your note appears in an editor, allowing you to format it however you'd like. Adapt fonts, colours, and styles to your needs.</p>
       </div>
-    </form>
+
+      <!-- Spinner -->
+      <div id="during-convert" style="display: none;">
+        <style>
+          .spin-container {
+            text-align: center;
+            margin-left: 30vw;
+            position: relative;
+            top: 340px;
+          }
+
+          .spin {
+            border: 3px solid #0D4B9F;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
+          }
+
+          #loader2 {
+            border: 3px solid #E0EDFF;
+            width: 220px;
+            height: 220px;
+            position: relative;
+            top: -216px;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
+          }
+
+          #loader3 {
+            border: 3px solid #005CDC;
+            width: 240px;
+            height: 240px;
+            position: relative;
+            top: -452px;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
+          }
+
+          #loader4 {
+            border: 3px solid #6b95cf;
+            width: 260px;
+            height: 260px;
+            position: relative;
+            top: -708px;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
+          }
+
+          @keyframes rotate {
+            0% {
+              transform: rotateZ(-360deg)
+            }
+
+            100% {
+              transform: rotateZ(0deg)
+            }
+          }
+
+          @keyframes rotate2 {
+            0% {
+              transform: rotateZ(360deg)
+            }
+
+            100% {
+              transform: rotateZ(0deg)
+            }
+          }
+
+          #text {
+            color: #D6E3F6;
+            font-family: Arial;
+            font-size: 15px;
+            position: relative;
+            top: -857px;
+          }
+        </style>
+        <div class="spin-container">
+          <div class="spin" id="loader"></div>
+          <div class="spin" id="loader2"></div>
+          <div class="spin" id="loader3"></div>
+          <div class="spin" id="loader4"></div>
+          <span id="text">CONVERTING...<br />This may take some time</span>
+        </div>
+      </div>
+
+
+      
+    </div>
+    
   </div>
 </div>
 <script>
   // Spinner code
   var spinner = document.getElementById('convert');
+  let filename = document.getElementsByClassName('format-input')[0];
+  let url = document.getElementsByClassName('format-input')[1];
   spinner.addEventListener('click', () => {
-    if(filename.value == "") { return; }  // Do nothing if no file is provided
+    if(filename.value == "" && url.value == "") { return; }  // Do nothing if no file is provided
     let before_conv = document.getElementById('before-convert');
     let during_conv = document.getElementById('during-convert');
     before_conv.style.display = "none";
     during_conv.style.display = "inline-block";
   })
 </script>
-{% comment %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  
-  
-{% endcomment %}
+
+<!-- Format Event Listener -->
+<script>
+  let fileFormat = document.getElementById('format');
+  fileFormat.addEventListener('change', () => {
+    if(fileFormat.value == "file") {
+      filename.disabled = false;
+      filename.style.display = "block";
+      url.style.display = "none";
+      filename.style.cursor = "default";
+    } else if(fileFormat.value == "url") {
+      filename.style.display = "none";
+      url.disabled = false
+      url.style.display = "block";
+      url.style.cursor = "auto";
+    } else {
+      url.disabled = true;
+      filename.disabled = true;
+      url.style.cursor = "not-allowed";
+      filename.style.cursor = "not-allowed";
+    }
+  });
+</script>
 
 {% endblock %}

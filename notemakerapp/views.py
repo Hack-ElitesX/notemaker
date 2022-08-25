@@ -32,24 +32,27 @@ def handleSignup(request):
         # Checks for errorneous inputs
         #
         if len(username) > 15:
-            messages.error(request,"Username must be under 15 characters")
+            messages.warning(request,"Username must be under 15 characters")
             return redirect('home')
         
         if not username.isalnum():
-            messages.error(request,"Username only contains alpha-numeric characters")
+            messages.warning(request,"Username only contains alpha-numeric characters")
             return redirect('home')
         
         if password1 != password2 :
-            messages.error(request,"Passwords do not match")
+            messages.warning(request,"Passwords do not match")
             return redirect('home')
             
             
         # Create the user
-        my_user = User.objects.create_user(username=username,email=email,password=password1)
-        my_user.first_name = name
-        my_user.save()
-        messages.success(request,"Your Account has been created Successfully !")
-
+        try:
+            my_user = User.objects.create_user(username=username,email=email,password=password1)
+            my_user.first_name = name
+            my_user.save()
+            messages.success(request,"Your Account has been created Successfully !")
+        except:
+            messages.error(request,f"Username {username} already Exists !")
+        
         return redirect('home')
     else:
         return HttpResponse('404 - Not Found')
@@ -115,10 +118,12 @@ def downloadNote(request, html, type, pageSize, output):
     # os.remove(saveFileName)
 
 def editor(request,**params):
+    if(not os.path.exists('media/')):
+        os.mkdir(os.path.join('', 'media'))
     if(not os.path.exists('media/pdf')):
-        os.mkdir(os.path.join('/', 'media') + '/pdf')
+        os.mkdir(os.path.join('', 'media') + '/pdf')
     if(not os.path.exists('media/word')):
-        os.mkdir(os.path.join('/', 'media') + '/word')
+        os.mkdir(os.path.join('', 'media') + '/word')
     if(request.method == "POST"):
         html = request.POST['text'];
         type = request.POST['fileType'];
@@ -144,30 +149,32 @@ def editor(request,**params):
         return render(request,'edit.html',params)
     
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
-async def main(path):
-    try:     
-        # Initializes the Deepgram SDK
-        deepgram = Deepgram(DEEPGRAM_API_KEY)
+async def main(type, path, url):
+    # Initializes the Deepgram SDK
+    deepgram = Deepgram(DEEPGRAM_API_KEY)
+    if(type == 'file'):
+        try:     
+            f = default_storage.open(os.path.join('', path), 'rb')
+            data = f.read()
+            f.close()
 
-        f = default_storage.open(os.path.join('', path), 'rb')
-        data = f.read()
-        f.close()
+            video_formats = ['mp4', 'mkv']
+            audio_formats = ['mp3', 'wav']
+            fileType = path.split('.')[1]
+            mimetype = ""
+            if(fileType in video_formats):
+                mimetype += "video/" + fileType
+            elif(fileType in audio_formats):
+                mimetype += "audio/" + fileType
+            else:
+                return None;
 
-        video_formats = ['mp4', 'mkv']
-        audio_formats = ['mp3', 'wav']
-        fileType = path.split('.')[1]
-        mimetype = ""
-        if(fileType in video_formats):
-            mimetype += "video/" + fileType
-        elif(fileType in audio_formats):
-            mimetype += "audio/" + fileType
-        else:
-            return None;
-
-        source = {'buffer': data, 'mimetype': 'audio/wav'}
-        response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
-    except Exception as e:
-        return HttpResponse(e)
+            source = {'buffer': data, 'mimetype': 'audio/wav'}
+        except Exception as e:
+            return HttpResponse(e)
+    elif(type == 'url'):
+        source = {'url': url}
+    response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
 
     res = json.dumps(response["results"]["channels"][0], indent=1)
     pattern = r"\"transcript\": \".+\""
@@ -177,40 +184,51 @@ async def main(path):
     final_text = final_text.replace("\"transcript\": \"", '').replace("\"<>", '')
     return final_text
 
-def audio_to_text(path):
-    return asyncio.run(main(path))
+def audio_to_text(type, path=None, url=None):
+    return asyncio.run(main(type, path, url))
 
 def convert(request):
     if request.method == "POST":
-        uploaded_file = request.FILES['file']
-        fs = FileSystemStorage()
-        token_var = uuid4()
-        saveFileName = str(token_var) + '_' + str(uploaded_file.name)
-        fs.save(saveFileName, uploaded_file)
+        text = None
+        fileFormat = request.POST['format']
+        if(fileFormat == 'file'):
+            uploaded_file = request.FILES['file']
+            fs = FileSystemStorage()
+            token_var = uuid4()
+            saveFileName = str(token_var) + '_' + str(uploaded_file.name)
+            fs.save(saveFileName, uploaded_file)
+            text = audio_to_text('file', saveFileName)
+            if(text == None):
+                return HttpResponse('''
+                <h1> Invalid File Format </h1>
+                <p> <b> Supported File Formats </b> </p>
+                <h3> Video </h3>
+                <ul>
+                    <li> MP4 </li>
+                    <li> MKV </li>
+                </ul>
+                <br>
+                <h3> Audio </h3>
+                <ul>
+                    <li> MP3 </li>
+                    <li> WAV </li>
+                </ul>
+                <a href="/conversion"> Go Back </a>
+                ''')
+        elif(fileFormat == 'url'):
+            url = request.POST['url']
+            text = audio_to_text('url', url=url)
 
-        text = audio_to_text(saveFileName)
-        if(text == None):
-            return HttpResponse('''
-            <h1> Invalid File Format </h1>
-            <p> <b> Supported File Formats </b> </p>
-            <h3> Video </h3>
-            <ul>
-                <li> MP4 </li>
-                <li> MKV </li>
-            </ul>
-            <br>
-            <h3> Audio </h3>
-            <ul>
-                <li> MP3 </li>
-                <li> WAV </li>
-            </ul>
-            <a href="/conversion"> Go Back </a>
-            ''')
         return render(request, 'edit.html', {'text': text})
     else:
         return render(request,'conversion.html')
 
 def collections(request):
+    if(request.user == "AnonymousUser"):
+        return HttpResponse('''
+        <h2> User Unauntheticated </h2>
+        <p> Kindly <a href="home.html"> Login </a> / <a href=""> Register </a> to access collections page </p>
+        ''')
     collection = Collection.objects.filter(username=request.user)
     context = {'notes': collection}
     return render(request,'collections.html', context) 

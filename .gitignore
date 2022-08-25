@@ -135,3 +135,4 @@ notemakerapp/media/
 # Ignores pychache
 /notemaker/__pycache__
 /notemakerapp/__pycache__
+module/

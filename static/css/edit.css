@@ -1,0 +1,39 @@
+.navbar {
+    margin-bottom: 15px;
+}
+#editor {
+    height: 75vh;
+}
+.ql-toolbar {
+    background-color: rgb(200, 200, 200);
+}
+#download-btn:hover {
+    background-color: aqua;
+}
+#fileName {
+    padding-left: 5px;
+    border-radius: 8px;
+    box-shadow: none;
+    outline: none;
+}
+#break {
+    display: none;
+}
+@media screen and (max-width: 1154px) {
+    #break {
+        display: block;
+        visibility: hidden;
+        margin-top: 25px;
+    }
+    #editor {
+        width: 85vw;
+    }
+    .ql-toolbar {
+        width: 85vw;
+    }
+    #options {
+        position: relative;
+        left: -25%;
+        width: 50%;
+    }
+}

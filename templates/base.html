@@ -21,19 +21,8 @@
     <title>Automated Note Maker</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="shortcut icon" href="{% static '/images/favicon.png' %}" type="image/x-icon">
-    <script src="{% static 'index.js' %}"></script>
-    <style>
-      a::selection, strong::selection {
-        background: none;
-      }
-      @media screen and (max-width: 500px) {
-        #profile-modal-dialog-box{
-          float: none;
-        }
-      }
-    </style>
-    
-
+    <script src="{% static 'js/index.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
   </head>
 
   <body>
@@ -201,7 +190,7 @@
       </div>
     </div>
     {% load static %}
-    <script src="{% static 'index.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
     {% block content %} {% endblock content %}
   </body>
 </html>

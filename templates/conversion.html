@@ -3,6 +3,7 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/fontawesome.min.js"
   crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/conversion.css' %}">
 <div class="container-fluid d-flex mt-5" style="align-items: center;justify-content:center;height:80vh;">
   <div class="container my-3 d-flex flex-center">
     
@@ -20,9 +21,15 @@
             {% csrf_token %}
             <div class="row d-flex flex-center m-auto ">
               <div class="col-sm">
-                <!-- <div class="col-lg-6"> -->
-                <input type="file" class="form-control" id="filename" name="file" accept=".mp3, .mp4, .wav, .mkv" required>
-                <!-- </div>         -->
+                <input type="file" class="form-control format-input" name="file" accept=".mp3, .mp4, .wav, .mkv">
+                <input type="text" class="form-control format-input" name="url" style="display: none" placeholder="Enter Video URL">
+              </div>
+              <div class="col-sm">
+                <select class="form-control" name="format" id="format">
+                  <option value=""> Select Input Type </option>
+                  <option selected value="file"> File </option>
+                  <option value="url"> URL </option>
+                </select>
               </div>
             </div>
     
@@ -44,86 +51,6 @@
 
       <!-- Spinner -->
       <div id="during-convert" style="display: none;">
-        <style>
-          .spin-container {
-            text-align: center;
-            margin-left: 30vw;
-            position: relative;
-            top: 340px;
-          }
-
-          .spin {
-            border: 3px solid #0D4B9F;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            border-radius: 50%;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-          }
-
-          #loader2 {
-            border: 3px solid #E0EDFF;
-            width: 220px;
-            height: 220px;
-            position: relative;
-            top: -216px;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-          }
-
-          #loader3 {
-            border: 3px solid #005CDC;
-            width: 240px;
-            height: 240px;
-            position: relative;
-            top: -452px;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-          }
-
-          #loader4 {
-            border: 3px solid #6b95cf;
-            width: 260px;
-            height: 260px;
-            position: relative;
-            top: -708px;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-          }
-
-          @keyframes rotate {
-            0% {
-              transform: rotateZ(-360deg)
-            }
-
-            100% {
-              transform: rotateZ(0deg)
-            }
-          }
-
-          @keyframes rotate2 {
-            0% {
-              transform: rotateZ(360deg)
-            }
-
-            100% {
-              transform: rotateZ(0deg)
-            }
-          }
-
-          #text {
-            color: #D6E3F6;
-            font-family: Arial;
-            font-size: 15px;
-            position: relative;
-            top: -857px;
-          }
-        </style>
         <div class="spin-container">
           <div class="spin" id="loader"></div>
           <div class="spin" id="loader2"></div>
@@ -132,29 +59,8 @@
           <span id="text">CONVERTING...<br />This may take some time</span>
         </div>
       </div>
-
-
-      
     </div>
-    
   </div>
 </div>
-<script>
-  // Spinner code
-  var spinner = document.getElementById('convert');
-  spinner.addEventListener('click', () => {
-    if(filename.value == "") { return; }  // Do nothing if no file is provided
-    let before_conv = document.getElementById('before-convert');
-    let during_conv = document.getElementById('during-convert');
-    before_conv.style.display = "none";
-    during_conv.style.display = "inline-block";
-  })
-</script>
-{% comment %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  
-  
-{% endcomment %}
-
+<script src="{% static 'js/conversion.js' %}" ></script>
 {% endblock %}

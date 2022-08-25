@@ -1,5 +1,3 @@
-
-
 .jaya {
   background: #ffffff;
   border: solid 1px #e6e6e6;
@@ -44,7 +42,6 @@
   margin: -17px 0 0 -12px;
   position: absolute;
   top: 50%;
-  /*transform:translate(-50%,-50%);*/
   
   width: 25px;
 }
@@ -53,7 +50,6 @@
 .jaya:hover:after {
   background: #e2e8f0;
 }
-/*a:before{transform:translate(-30%,-60%);}*/
 
 .jaya:before {
   margin: -23px 0 0 -5px;

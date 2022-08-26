@@ -10,44 +10,43 @@
       <div>
         <div id="before-convert" class="container">
           <div class="row">
-            <div class="col" style="width: 50%;">
-              <img src="{% static '/images/hex22.png' %}" style="width:80%" height="80%" class="rounded float-start mt-5" alt="...">
+            <div class="col" style="width: 70%;">
+              <img src="{% static '/images/hex22.png' %}" style="width:60%;margin-left: auto;" class="rounded float-start mt-5" alt="...">
             </div>
-            <div class="col" style="width: 50%;">
-              <img src="{% static '/images/hex33.png' %}" style="width:80%" height="80%" class="rounded float-end mt-5" alt="...">
+            <div class="col" style="width: 30%;position: relative;top: 100px;">
+              <p> Need Help*
+                <br> 
+                Upload :
+                Want to save your audio or video recording into easily readable notes? Simply choose the desired file type and upload the file from your device.
+                <br>
+                Convert :
+                Uploaded the file? Next, merely click the convert button. This magical button transforms your audio or video file into your conveniently located note. Your note appears in an editor, allowing you to format it however you'd like. Adapt fonts, colours, and styles to your needs.</p>
             </div>
           </div>
           <form action="conversion" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row d-flex flex-center m-auto ">
               <div class="col-sm">
-                <input type="file" class="form-control format-input" name="file" accept=".mp3, .mp4, .wav, .mkv">
-                <input type="text" class="form-control format-input" name="url" style="display: none" placeholder="Enter Video URL">
-              </div>
-              <div class="col-sm">
-                <select class="form-control" name="format" id="format">
+                <select required class="form-control" name="format" id="format">
                   <option value=""> Select Input Type </option>
                   <option selected value="file"> File </option>
                   <option value="url"> URL </option>
                 </select>
               </div>
+              <div class="col-sm">
+                <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
+              </div> <hr style="visibility: hidden;">
+              <!-- <div class="d-flex justify-content-center flex-center my-4"> -->
+              <div class="col-sm">
+                <input type="file" class="form-control format-input" name="file" accept=".mp3, .mp4, .wav, .mkv">
+                <input type="text" class="form-control format-input" name="url" style="display: none" placeholder="Enter Video URL">
+              </div>
             </div>
     
-            <div class="d-flex justify-content-center flex-center my-4 ">
-              <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
-            </div>
           </form>
         </div>
       
-      <div>
-        <p> Need Help*
-          <br> 
-          Upload :
-          Want to save your audio or video recording into easily readable notes? Simply choose the desired file type and upload the file from your device.
-          <br>
-          Convert :
-          Uploaded the file? Next, merely click the convert button. This magical button transforms your audio or video file into your conveniently located note. Your note appears in an editor, allowing you to format it however you'd like. Adapt fonts, colours, and styles to your needs.</p>
-      </div>
+      
 
       <!-- Spinner -->
       <div id="during-convert" style="display: none;">

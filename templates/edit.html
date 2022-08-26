@@ -111,6 +111,15 @@
 		}, 1500);
 	});
 </script>
-
+<script>
+	// Automatically Highlight Important Words
+	for(let i=0;i<{{total}};i++) {
+		var text = document.getElementsByClassName('ql-editor')[0]
+		text.innerHTML = text.innerHTML.replace('||', "<b>")
+		text.innerHTML = text.innerHTML.replace('__', "</b>")
+		text.innerHTML = text.innerHTML.replace('|', "<span style='background-color: rgb(240, 102, 102);'>")
+		text.innerHTML = text.innerHTML.replace('_', '</span>')
+	}
+</script>
 
 {% endblock %}

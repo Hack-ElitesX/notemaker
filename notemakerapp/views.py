@@ -198,6 +198,7 @@ def download_yt_video(url, filename, savePath):
     yt.download(url, filename, savePath)
 
 def convert(request):
+    print("Conversion")
     if request.method == "POST":
         text = None
         fileFormat = request.POST['format']
@@ -211,6 +212,32 @@ def convert(request):
             text = audio_to_text('file', saveFileName, language=language)
             if(language == "hi-Latn"):
                 text = to_hinglish(text)
+            if(language == "en"):
+                imp_words = {'important', 'note', 'fundamental', 'chief point', 'necessary', 'etcetera', 'essential', 'diagram'}
+                more_words = {'major', 'crucial', 'vital', 'significant', 'leading edge', 'example', 'called', 'those are'}
+                text = text.split('.')
+                print(text)
+                sen_offset = 0
+                for sentence in text:
+                    print(sentence)
+                    for words in imp_words:
+                        if(words.lower() in sentence.lower()):
+                            print("Word:", words, "\tSentence:", sentence)
+                            # text[sen_offset] = "<span style='background-color: rgb(240, 102, 102);'>" + text[sen_offset] + "</span>"
+                            print("Before:" + text[sen_offset])
+                            text[sen_offset] = " | " + text[sen_offset] + " _ "
+                            print("After:" + text[sen_offset])
+                            print("Word Found:", words)
+                            print("\n\n")
+                    for words in more_words:
+                        if(words.lower() in sentence.lower()):
+                            # text[sen_offset] = "<span style='background-color: #66b966;'>" + text[sen_offset] + "</span>"
+                            print("Before:" + text[sen_offset])
+                            text[sen_offset] = " || " + text[sen_offset] + " __ "
+                            print("After:" + text[sen_offset])
+                            print("Word Found:", words)
+                    sen_offset += 1
+                text = ' '.join(text)
             if(text == None):
                 return HttpResponse('''
                 <h1> Invalid File Format </h1>
@@ -239,8 +266,10 @@ def convert(request):
                     text = to_hinglish(text)
             else: 
                 text = audio_to_text('url', url=url, language=language)
-
-        return render(request, 'edit.html', {'text': text})
+        try:
+            return render(request, 'edit.html', {'text': text, 'total': sen_offset})
+        except:
+            return render(request, 'edit.html', {'text': text})
     else:
         return render(request,'conversion.html')
 

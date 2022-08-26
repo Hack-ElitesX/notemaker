@@ -25,7 +25,7 @@ var quill = new Quill('#editor', {
 $("#toolbar").append($(".ql-toolbar"));
 
 // Live Audio Feature using DG
-let text = document.getElementsByClassName('ql-editor')[0]
+var text = document.getElementsByClassName('ql-editor')[0]
 function live() {
     let stream = null;
     async function getUserMedia(constraints) {  

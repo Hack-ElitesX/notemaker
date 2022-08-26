@@ -23,3 +23,22 @@ var quill = new Quill('#editor', {
     theme: "snow",
 });
 $("#toolbar").append($(".ql-toolbar"));
+
+// Live Audio Feature using DG
+navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
+    const mediaRecorder = new MediaRecorder(stream, {mimeType: 'audio/webm'})
+    const socket = new WebSocket('wss://api.deepgram.com/v1/listen', ['token', 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'])
+
+    socket.onopen = () => {
+        mediaRecorder.addEventListener('dataavailable', event => {
+            socket.send(event.data)
+        })
+        mediaRecorder.start(250)
+    }
+
+    socket.onmessage = (message) => {
+        const received = JSON.parse(message.data)
+        const transcript = received.channel.alternatives[0].transcript
+        console.log(transcript)
+    }
+})

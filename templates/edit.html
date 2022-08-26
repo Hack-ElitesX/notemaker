@@ -113,7 +113,12 @@
 </script>
 <script>
 	// Automatically Highlight Important Words
-	for(let i=0;i<{{total}};i++) {
+    {% if total %}
+		var length = {{total}}
+	{% else %}
+		var length = 0
+	{% endif %}
+	for(let i=0;i<length;i++) {
 		var text = document.getElementsByClassName('ql-editor')[0]
 		text.innerHTML = text.innerHTML.replace('||', "<b>")
 		text.innerHTML = text.innerHTML.replace('__', "</b>")

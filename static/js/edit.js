@@ -26,7 +26,7 @@ $("#toolbar").append($(".ql-toolbar"));
 
 // Live Audio Feature using DG
 var text = document.getElementsByClassName('ql-editor')[0]
-function live() {
+function live(stat) {
     let stream = null;
     async function getUserMedia(constraints) {  
         try {
@@ -50,7 +50,11 @@ function live() {
             mediaRecorder.addEventListener('dataavailable', event => {
                 socket.send(event.data)
             })
-            mediaRecorder.start(1000)
+            mediaRecorder.start(0)
+            // if(stat == 1)
+            //     mediaRecorder.start(1000)
+            // else
+            //     mediaRecorder.stop()
         }
     
         socket.onmessage = (message) => {
@@ -63,7 +67,11 @@ function live() {
     })
 }
 let live_rec = document.getElementById('live-rec');
+live_rec_status = 0
 live_rec.addEventListener('click', () => {
-    console.log("Clicked")
-    live()
+    // live()
+    if(live_rec_status == 0) {
+        live()
+        live_rec_status = 1
+    }
 })

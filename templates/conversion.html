@@ -6,7 +6,17 @@
 <link rel="stylesheet" href="{% static 'css/conversion.css' %}">
 <div class="container-fluid d-flex mt-5" style="align-items: center;justify-content:center;height:80vh;">
   <div class="container my-3 d-flex flex-center">
-    
+    <!-- WARNING: Do Not Touch -->
+    <!-- Spinner -->
+    <div id="during-convert" style="display: none;">
+      <div class="spin-container">
+        <div class="spin" id="loader"></div>
+        <div class="spin" id="loader2"></div>
+        <div class="spin" id="loader3"></div>
+        <div class="spin" id="loader4"></div>
+        <span id="text">CONVERTING...<br />This may take some time</span>
+      </div>
+    </div>
       <div>
         <div id="before-convert" class="container">
           <div class="row">
@@ -25,7 +35,7 @@
           </div>
           <form action="conversion" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="row d-flex flex-center m-auto ">
+            <div class="col-sm">
               <div class="col-sm">
                 <select required class="form-control" name="format" id="format">
                   <option value=""> Select Input Type </option>
@@ -33,13 +43,21 @@
                   <option value="url"> URL </option>
                 </select>
               </div>
+            <div class="col-sm">
               <div class="col-sm">
-                <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
-              </div> <hr style="visibility: hidden;">
-              <!-- <div class="d-flex justify-content-center flex-center my-4"> -->
-              <div class="col-sm">
+                <select required class="form-control" name="lang" id="lang">
+                  <option value=""> Select Language </option>
+                  <option selected value="en"> English </option>
+                  <option value="hi-Latn"> Hindi </option>
+                </select>
+              </div>
+
+              <div class="col-sm" style="width: 79vw;">
                 <input type="file" class="form-control format-input" name="file" accept=".mp3, .mp4, .wav, .mkv">
                 <input type="text" class="form-control format-input" name="url" style="display: none" placeholder="Enter Video URL">
+              </div>
+              <div class="col-sm">
+                <button id="convert" type="submit" class="btn btn-primary p-2 ">Convert</button>
               </div>
             </div>
     
@@ -48,16 +66,7 @@
       
       
 
-      <!-- Spinner -->
-      <div id="during-convert" style="display: none;">
-        <div class="spin-container">
-          <div class="spin" id="loader"></div>
-          <div class="spin" id="loader2"></div>
-          <div class="spin" id="loader3"></div>
-          <div class="spin" id="loader4"></div>
-          <span id="text">CONVERTING...<br />This may take some time</span>
-        </div>
-      </div>
+      
     </div>
   </div>
 </div>

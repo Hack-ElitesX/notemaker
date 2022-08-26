@@ -14,6 +14,9 @@ from django.core.files.storage import default_storage
 import os
 import pdfkit   # Converts HTML to PDF
 from htmldocx import HtmlToDocx # Converts HTML to DOCX
+from indic_transliteration import sanscript
+from indic_transliteration.sanscript import transliterate
+from . import yt_download
 
 # Create your views here.
 def home(request):
@@ -149,7 +152,7 @@ def editor(request,**params):
         return render(request,'edit.html',params)
     
 DEEPGRAM_API_KEY = 'ce3960b83c89b1411d4fde4b9fd22905d1ee1900'
-async def main(type, path, url):
+async def main(type, path, url, language):
     # Initializes the Deepgram SDK
     deepgram = Deepgram(DEEPGRAM_API_KEY)
     if(type == 'file'):
@@ -174,7 +177,7 @@ async def main(type, path, url):
             return HttpResponse(e)
     elif(type == 'url'):
         source = {'url': url}
-    response = await deepgram.transcription.prerecorded(source, {'punctuate': True})
+    response = await deepgram.transcription.prerecorded(source, {'punctuate': True, 'language':language})
 
     res = json.dumps(response["results"]["channels"][0], indent=1)
     pattern = r"\"transcript\": \".+\""
@@ -184,20 +187,30 @@ async def main(type, path, url):
     final_text = final_text.replace("\"transcript\": \"", '').replace("\"<>", '')
     return final_text
 
-def audio_to_text(type, path=None, url=None):
-    return asyncio.run(main(type, path, url))
+def audio_to_text(type, path=None, url=None, language="en"):
+    return asyncio.run(main(type, path, url, language))
+
+def to_hinglish(text):
+    return(transliterate(text, sanscript.ITRANS, sanscript.DEVANAGARI))
+
+def download_yt_video(url, filename, savePath):
+    yt = yt_download.YouTube()
+    yt.download(url, filename, savePath)
 
 def convert(request):
     if request.method == "POST":
         text = None
         fileFormat = request.POST['format']
+        language = request.POST['lang']
         if(fileFormat == 'file'):
             uploaded_file = request.FILES['file']
             fs = FileSystemStorage()
             token_var = uuid4()
             saveFileName = str(token_var) + '_' + str(uploaded_file.name)
             fs.save(saveFileName, uploaded_file)
-            text = audio_to_text('file', saveFileName)
+            text = audio_to_text('file', saveFileName, language=language)
+            if(language == "hi-Latn"):
+                text = to_hinglish(text)
             if(text == None):
                 return HttpResponse('''
                 <h1> Invalid File Format </h1>
@@ -217,7 +230,15 @@ def convert(request):
                 ''')
         elif(fileFormat == 'url'):
             url = request.POST['url']
-            text = audio_to_text('url', url=url)
+            if("youtu" in url):
+                filename = url.split('/')[-1]
+                download_yt_video(url, filename, os.path.join('', 'media'))
+                print(os.path.join('', 'media') + '/' + filename + '.mp4')
+                text = audio_to_text('file', filename + '.mp4', language=language)
+                if(language == "hi-Latn"):
+                    text = to_hinglish(text)
+            else: 
+                text = audio_to_text('url', url=url, language=language)
 
         return render(request, 'edit.html', {'text': text})
     else:

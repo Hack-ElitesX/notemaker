@@ -79,3 +79,13 @@
     position: relative;
     top: -857px;
 }
+
+#convert {
+    width: 10vw;
+}
+.col-sm {
+    max-width: 50%;
+}
+.col-sm:last-of-type {
+    margin-bottom: 15px;
+}

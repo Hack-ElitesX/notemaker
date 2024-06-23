@@ -42,5 +42,3 @@ To run the server cd into the project directory then run <br>
 [<b>Sagar Memane</b>](https://github.com/malcov-girl)<br>
 [<b>Abhay Rane</b>](https://github.com/cyno-benzene)<br>
 [<b>Aditya Jha</b>](https://github.com/aditya955)<br>
-[<b>Devansh Thakker</b>](https://github.com/devanshthakker15)<br>
-[<b>Fahad Shaikh</b>](https://github.com/iamfahadshaikh)<br>
